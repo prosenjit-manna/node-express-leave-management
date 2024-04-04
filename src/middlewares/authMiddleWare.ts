@@ -9,6 +9,7 @@ export function verifyToken(req: Request, res: Response, next: NextFunction) {
   if (!token) return res.status(401).json({ error: 'Access denied' });
   try {
     const decoded = jwt.verify(token, get_env.JSON_WEB_TOKEN_SECRET) as unknown as AppJwtPayload;
+    console.log('jwt', decoded);
     req.userId = decoded.userId;
     next();
   } catch (error: any) {
