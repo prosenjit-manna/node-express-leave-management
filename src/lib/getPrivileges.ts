@@ -36,5 +36,25 @@ export function getPrivileges(role: Role) {
     };
   }
 
+  if (role === Role.SITE_OWNER) {
+    privileges = {
+      ...privileges,
+      leave: {
+        create: true,
+        update: true,
+        list: true,
+        delete: true,
+        readonly: false,
+      },
+      employee: {
+        create: true,
+        update: true,
+        list: true,
+        delete: true,
+        readonly: false,
+      },
+    };
+  }
+
   return privileges;
 }
