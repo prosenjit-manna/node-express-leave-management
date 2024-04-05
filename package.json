@@ -14,6 +14,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sentry/node": "^7.109.0",
+    "@sentry/profiling-node": "^7.109.0",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "envalid": "^8.0.0",

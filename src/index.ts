@@ -6,11 +6,15 @@ import { get_env } from './lib/get-env';
 import authRoutes from './view/auth';
 import protectedRoutes from './view/protected-routes';
 import { dbConnect } from './db/connection';
+import { sentryInit } from './lib/sentry-error-tracking';
 
 dbConnect();
 
 const app = express();
+sentryInit({ app });
+
 app.use(express.json());
+
 app.use('/auth', authRoutes);
 app.use(protectedRoutes);
 
