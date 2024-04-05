@@ -3,12 +3,12 @@ import { UserModel } from '../../models/User';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { get_env } from '../../lib/get-env';
-
+import { sendErrorResponse } from '../../lib/errorResponse';
 
 export async function loginController(req: Request, res: Response) {
   try {
     const { username, password } = req.body;
-    const user = await UserModel.findOne({ username });
+    const user = await UserModel.findOne({ username }, 'password');
     if (!user) {
       return res.status(401).json({ error: 'Authentication failed' });
     }
@@ -22,6 +22,6 @@ export async function loginController(req: Request, res: Response) {
     });
     res.status(200).json({ token });
   } catch (error) {
-    res.status(500).json({ error: 'Login failed' });
+    sendErrorResponse({ error, res });
   }
 }
