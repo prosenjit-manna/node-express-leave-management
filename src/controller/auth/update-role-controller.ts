@@ -10,7 +10,7 @@ export async function updateRoleController(req: Request, res: Response) {
   try {
     const body = req.body as UpdateRoleRequest;
     const user = await UserModel.findOne({ _id: body.userId });
-    if ((req.role === Role.ADMIN || req.role === Role.SITE_OWNER) && user?.role !== Role.SITE_OWNER) {
+    if ((req.role === Role.ADMIN || req.role === Role.OWNER) && user?.role !== Role.OWNER) {
       await user?.updateOne({ role: body.role }).where({ _id: body.userId });
       res.status(200).send({ message: 'Updated' });
     } else {

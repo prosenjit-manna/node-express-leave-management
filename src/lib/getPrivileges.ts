@@ -36,7 +36,7 @@ export function getPrivileges(role: Role) {
     };
   }
 
-  if (role === Role.SITE_OWNER) {
+  if (role === Role.OWNER) {
     privileges = {
       ...privileges,
       leave: {
