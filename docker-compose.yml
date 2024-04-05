@@ -1,15 +1,15 @@
 version: '3.7'
 services:
-  postgres:
-      image: postgres:15.4
-      volumes:
-        - ./tmp/db/postgresql:/var/lib/postgresql/data
-      environment:
-        - POSTGRES_PASSWORD=postgresPasswword
-        - POSTGRES_USER=nodeProdUser
-        - POSTGRES_DB=node_pretaa_testing
-      ports:
-        - '5432:5432'
+  # postgres:
+  #     image: postgres:15.4
+  #     volumes:
+  #       - ./tmp/db/postgresql:/var/lib/postgresql/data
+  #     environment:
+  #       - POSTGRES_PASSWORD=postgresPasswword
+  #       - POSTGRES_USER=nodeProdUser
+  #       - POSTGRES_DB=node_pretaa_testing
+  #     ports:
+  #       - '5432:5432'
 
   mongo:
     image: mongo
