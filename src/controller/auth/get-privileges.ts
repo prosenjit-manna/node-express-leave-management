@@ -1,13 +1,10 @@
 import { Request, Response } from 'express';
-import { UserModel } from '../../models/User';
+import { getPrivileges } from '../../lib/getPrivileges';
 
 export async function getPrivilegesController(req: Request, res: Response) {
-  console.log(req.userId);
-  if (req.userId) {
-    const user = await UserModel.findOne({ _id: req.userId });
-    console.log('user', user?.id);
+  if (req.role) {
+    res.send(getPrivileges(req.role));
+  } else {
+    res.send({ message: 'No Auth available ' });
   }
-
-  // const privilege = getPrivileges()
-  res.send('Auth get privileges');
 }

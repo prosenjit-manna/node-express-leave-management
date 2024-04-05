@@ -19,6 +19,10 @@ router.get('/get-privileges', verifyToken, async (req: Request, res: Response) =
   getPrivilegesController(req, res);
 });
 
+router.get('/update-role', verifyToken, async (req: Request, res: Response) => {
+  getPrivilegesController(req, res);
+});
+
 router.get('/', (req: Request, res: Response) => {
   res.send('Auth');
 });
