@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { get_env } from '../lib/get-env';
+import { get_env } from './get-env';
 
 export async function dbConnect() {
   try {

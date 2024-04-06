@@ -4,7 +4,7 @@ dotenv.config();
 import { get_env } from './lib/get-env';
 
 import authRoutes from './view/auth';
-import { dbConnect } from './db/connection';
+import { dbConnect } from './lib/connection';
 import { sentryInit } from './lib/sentry-error-tracking';
 
 dbConnect();

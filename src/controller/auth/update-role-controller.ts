@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 import { Role } from '../../apiModel/roles.enum';
-import { UserModel } from '../../models/User';
+import { userModel } from '../../models/User';
 import { UpdateRoleRequest } from '../../apiModel/update-role/updateRoleRequest.interface';
 
 /**
@@ -9,7 +9,7 @@ import { UpdateRoleRequest } from '../../apiModel/update-role/updateRoleRequest.
 export async function updateRoleController(req: Request, res: Response) {
   try {
     const body = req.body as UpdateRoleRequest;
-    const user = await UserModel.findOne({ _id: body.userId });
+    const user = await userModel.findOne({ _id: body.userId });
     if ((req.role === Role.ADMIN || req.role === Role.OWNER) && user?.role !== Role.OWNER) {
       await user?.updateOne({ role: body.role }).where({ _id: body.userId });
       res.status(200).send({ message: 'Updated' });

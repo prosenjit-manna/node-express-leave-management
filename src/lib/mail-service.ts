@@ -11,7 +11,7 @@ const logger = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 
-export const sendMail = async (from: string, to: string, subject: string) => {
+export const sendMail = async ({ to, subject, html }: { to: string; subject: string; html: string }) => {
   const transporter = nodemailer.createTransport({
     host: get_env.SMTP_HOST,
     port: get_env.SMTP_PORT,
@@ -22,11 +22,10 @@ export const sendMail = async (from: string, to: string, subject: string) => {
   });
 
   const mailOptions: Mail.Options = {
-    from: from,
+    from: get_env.SMTP_SENDER,
     to: to,
     subject: subject,
-    text: 'Hey there, it’s our first message sent with Nodemailer 😉 ',
-    html: '<b>Hey there! </b><br> This is our first message sent with Nodemailer',
+    html,
   };
 
   logger.info(`Sending mail to - ${to}`);
