@@ -4,6 +4,8 @@ interface User extends mongoose.Document {
   username: string;
   password: string;
   passwordResetToken?: string;
+  failedAttempt?: number;
+  lockoutTime?: Date;
   role: Role;
   _id: string;
 }
@@ -27,6 +29,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true, select: false },
   role: { type: String, required: true },
   passwordResetToken: { type: String, required: false },
+  lockoutTime: { type: Date },
+  failedAttempt: { type: Number },
 });
 
 export const userModel = mongoose.model<User>('User', userSchema);

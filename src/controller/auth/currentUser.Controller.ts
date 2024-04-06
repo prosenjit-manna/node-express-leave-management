@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import { userModel } from '../../models/User';
+import { userModel } from '../../models/userModel';
 import { sendErrorResponse } from '../../lib/errorResponse';
 
 export async function currentUserController(req: Request, res: Response) {

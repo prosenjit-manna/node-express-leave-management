@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { Response, NextFunction, Request } from 'express';
 import { get_env } from '../lib/get-env';
 import { AppJwtPayload } from './authMiddleWare.interface';
-import { userModel } from '../models/User';
+import { userModel } from '../models/userModel';
 
 export async function verifyToken(req: Request, res: Response, next: NextFunction) {
   const token = req.header('Authorization');

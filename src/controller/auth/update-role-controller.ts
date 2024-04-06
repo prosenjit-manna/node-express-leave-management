@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 import { Role } from '../../apiModel/roles.enum';
-import { userModel } from '../../models/User';
+import { userModel } from '../../models/userModel';
 import { UpdateRoleRequest } from '../../apiModel/update-role/updateRoleRequest.interface';
 
 /**

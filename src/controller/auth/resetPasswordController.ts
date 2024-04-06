@@ -1,4 +1,4 @@
-import { userModel } from '../../models/User';
+import { userModel } from '../../models/userModel';
 
 import { Response, Request } from 'express';
 import bcrypt from 'bcrypt';
@@ -17,7 +17,7 @@ export async function resetPasswordController(req: Request, res: Response) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await user?.updateOne({ password: hashedPassword, passwordResetToken: null });
+    await user?.updateOne({ password: hashedPassword, passwordResetToken: null, failedAttempt: 0, lockoutTime: null });
 
     const html = `
      Your password has been changed!

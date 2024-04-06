@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { LoginRequest } from '../../apiModel/login/loginRequest.interface';
 import { LoginResponse } from '../../apiModel/login/loginResponse.interface';
-import { userModel } from '../../models/User';
+import { userModel } from '../../models/userModel';
 import bcrypt from 'bcrypt';
 import { Role } from '../../apiModel/roles.enum';
 

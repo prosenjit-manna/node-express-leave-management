@@ -1,5 +1,5 @@
 import { ForgetPasswordRequest } from '../../apiModel/forgetPassword/forgetPasswordRequest.interface';
-import { userModel } from '../../models/User';
+import { userModel } from '../../models/userModel';
 
 import { Response, Request } from 'express';
 import { sendErrorResponse } from '../../lib/errorResponse';
