@@ -1,6 +1,8 @@
 import { cleanEnv, str, num } from 'envalid';
 
 export const get_env = cleanEnv(process.env, {
+  MODE: str({ default: 'development' }),
+
   PORT: num({ desc: 'Server Port' }),
   SERVER_URL: str({ desc: 'Server API URL' }),
   MONGO_DB_URI: str({ desc: 'mongodb://{userName}:{password}@{host}:{port}' }),

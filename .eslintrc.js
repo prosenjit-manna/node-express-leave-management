@@ -23,6 +23,10 @@ module.exports = {
       'space-in-parens': 'error',
       'no-multiple-empty-lines': 'error',
       'prefer-const': 'error',
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { "argsIgnorePattern": "^_" }
+      ]
     },
   };
   

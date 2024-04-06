@@ -8,9 +8,9 @@ export function getPrivileges(role: Role) {
       ...privileges,
       leave: {
         create: true,
-        update: { isContentOwner: true },
-        list: { isContentOwner: true },
-        delete: { isContentOwner: true },
+        update: true,
+        list: true,
+        delete: true,
         readonly: false,
       },
     };

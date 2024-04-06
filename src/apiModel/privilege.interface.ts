@@ -1,17 +1,14 @@
-export interface Permission {
-  isContentOwner?: boolean;
-  isSiteOwner?: boolean;
-}
-
 export interface Privilege {
-  create: boolean | Permission;
-  list: boolean | Permission;
-  delete: boolean | Permission;
-  update: boolean | Permission;
-  readonly: boolean;
+  create: boolean;
+  list: boolean;
+  delete: boolean;
+  update: boolean;
+  documentOwner?: boolean;
 }
 
 export interface Privileges {
+  name: string;
+  type: string;
   employee: Privilege | null;
   leave: Privilege | null;
 }

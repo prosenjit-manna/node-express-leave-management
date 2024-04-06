@@ -1,17 +1,11 @@
 import winston from 'winston';
+import { get_env } from './get-env';
 const format = winston.format;
 export enum LoggerLevel {
   'error' = 'error',
   'info' = 'info',
   'debug' = 'debug',
 }
-
-const customFormat = format.printf(({ level, message, timestamp }) => {
-  if (typeof message === 'object') {
-    message = JSON.parse(message);
-  }
-  return `${timestamp} ${level}: ${message}`;
-});
 
 export const logger = winston.createLogger({
   level: 'debug',
@@ -22,3 +16,11 @@ export const logger = winston.createLogger({
     new winston.transports.File({ filename: 'log/combined.log' }),
   ],
 });
+
+if (get_env.MODE !== 'production') {
+  logger.add(
+    new winston.transports.Console({
+      format: format.combine(format.timestamp(), format.splat(), format.prettyPrint()),
+    }),
+  );
+}

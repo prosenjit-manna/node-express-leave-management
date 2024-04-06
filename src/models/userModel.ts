@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { Role } from '../apiModel/roles.enum';
 interface User extends mongoose.Document {
   username: string;
@@ -7,6 +7,7 @@ interface User extends mongoose.Document {
   failedAttempt?: number;
   lockoutTime?: Date;
   role: Role;
+  roleId: String;
   _id: string;
 }
 
@@ -18,7 +19,7 @@ const validateEmail = function (email: string) {
   return re.test(email);
 };
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<User>({
   username: {
     type: String,
     unique: true,
@@ -28,6 +29,7 @@ const userSchema = new mongoose.Schema({
   },
   password: { type: String, required: true, select: false },
   role: { type: String, required: true },
+  roleId: { type: Schema.Types.ObjectId, required: true },
   passwordResetToken: { type: String, required: false },
   lockoutTime: { type: Date },
   failedAttempt: { type: Number },

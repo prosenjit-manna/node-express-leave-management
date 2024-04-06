@@ -26,8 +26,6 @@ export function sentryInit({ app }: { app: Express }) {
 
   // The error handler must be registered before any other error middleware and after all controllers
   app.use(Sentry.Handlers.errorHandler());
-  
-  
 }
 
 export function captureError(e: any) {
