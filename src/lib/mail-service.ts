@@ -1,15 +1,7 @@
 import nodemailer from 'nodemailer';
-import winston from 'winston';
-import dotenv from 'dotenv';
 import { get_env } from './get-env';
 import Mail from 'nodemailer/lib/mailer';
-dotenv.config();
-
-const logger = winston.createLogger({
-  level: 'debug',
-  format: winston.format.json(),
-  transports: [new winston.transports.Console()],
-});
+import { LoggerLevel, logger } from './logger';
 
 export const sendMail = async ({ to, subject, html }: { to: string; subject: string; html: string }) => {
   const transporter = nodemailer.createTransport({
@@ -28,10 +20,9 @@ export const sendMail = async ({ to, subject, html }: { to: string; subject: str
     html,
   };
 
-  logger.info(`Sending mail to - ${to}`);
+  logger.log(LoggerLevel.info, 'sending mail to:', { to });
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log(error);
       logger.error(error);
     } else {
       logger.info('Email sent: ' + info.response);
