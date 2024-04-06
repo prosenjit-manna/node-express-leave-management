@@ -5,13 +5,14 @@ import { Response, Request } from 'express';
 import { sendErrorResponse } from '../../lib/errorResponse';
 import { sendMail } from '../../lib/mail-service';
 import { v4 as uuidv4 } from 'uuid';
+import bcrypt from 'bcrypt';
 
 export async function forgetPasswordController(req: Request, res: Response) {
   try {
     const { email } = req.body as unknown as ForgetPasswordRequest;
     const user = await userModel.findOne({ username: email });
 
-    const passwordResetToken = uuidv4();
+    const passwordResetToken = await bcrypt.hash(uuidv4(), 10);
 
     await user?.updateOne({ passwordResetToken });
 
