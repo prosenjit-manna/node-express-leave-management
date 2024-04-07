@@ -12,14 +12,17 @@
 - Forget password and Reset password with token 
 - Get logged in user information 
 - File based logger with winston
- 
+- Role update
+- Dynamic role
+
+### Seed 
+- User
+- Role
 
 # In Progress
-- Role update
+- Registration with email verification 
 
 ## Backlog 
-- Registration with email verification 
 - JWT token validity update 
-- Dynamic role
 
 
