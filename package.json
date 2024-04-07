@@ -10,7 +10,12 @@
     "lint": "eslint ./src/**/*.ts --fix",
     "prepare": "husky install"
   },
-  "keywords": ["Mongodb", "Express", "Typescript", "Rest Api"],
+  "keywords": [
+    "Mongodb",
+    "Express",
+    "Typescript",
+    "Rest Api"
+  ],
   "author": "Prosenjit Manna",
   "license": "ISC",
   "dependencies": {
@@ -22,7 +27,7 @@
     "envalid": "^8.0.0",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.2.3",
+    "mongoose": "^8.3.0",
     "nodemailer": "^6.9.13",
     "uuid": "^9.0.1",
     "winston": "^3.13.0",
