@@ -1,10 +1,11 @@
-import { Role } from "../../apiModel/roles.enum";
+import { Privileges } from '../../apiModel/privilege.interface';
+import { User } from '../../models/userModel';
 
 declare global {
   namespace Express {
     interface Request {
-      userId?: string;
-      role?: Role
+      user: User;
+      privileges: Privileges;
     }
   }
 }

@@ -19,6 +19,9 @@ export async function addRoles() {
       delete: true,
       update: true,
     },
+    role: {
+      update: true,
+    },
     name: Role.APP_OWNER,
     type: Role.APP_OWNER,
   };
@@ -41,6 +44,9 @@ export async function addRoles() {
       create: true,
       list: true,
       delete: true,
+      update: true,
+    },
+    role: {
       update: true,
     },
     name: Role.ORG_OWNER,

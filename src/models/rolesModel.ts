@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
 export interface Privilege extends mongoose.Document {
-  create: boolean;
-  list: boolean;
-  delete: boolean;
-  update: boolean;
+  create?: boolean;
+  list?: boolean;
+  delete?: boolean;
+  update?: boolean;
   documentOwner?: boolean;
 }
 
@@ -13,6 +13,7 @@ export interface Privileges extends mongoose.Document {
   type: string;
   employee: Privilege | null;
   leave: Privilege | null;
+  role?: Privilege | null;
 }
 
 const privilegeSchema = new mongoose.Schema<Privilege>({
@@ -32,6 +33,7 @@ const rolesSchema = new mongoose.Schema<Privileges>({
   leave: {
     type: privilegeSchema,
   },
+  role: privilegeSchema,
 });
 
 export const roleModel = mongoose.model('Role', rolesSchema);

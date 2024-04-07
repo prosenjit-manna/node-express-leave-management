@@ -2,11 +2,13 @@ import { Role } from '../apiModel/roles.enum';
 import { get_env } from '../lib/get-env';
 import { roleModel } from '../models/rolesModel';
 import { userModel } from '../models/userModel';
+import bcrypt from 'bcrypt';
 
 async function addUser({ username, role }: { username: string; role: Role }) {
   const user = await userModel.findOne({ username });
   const user_role = await roleModel.findOne({ name: role });
-  const userData = { username: username, password: get_env.SEED_DEFAULT_PASSWORD, role, roleId: user_role?.id };
+  const password = await bcrypt.hash(get_env.SEED_DEFAULT_PASSWORD, 10);
+  const userData = { username: username, password, role, roleId: user_role?.id };
   if (user) {
     await user.updateOne(userData);
   } else {
