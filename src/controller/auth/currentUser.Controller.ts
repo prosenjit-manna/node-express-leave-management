@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import { sendErrorResponse } from '../../lib/errorResponse';
+import { sendErrorResponse } from '../../lib/sendResponse';
 
 export async function currentUserController(req: Request, res: Response) {
   try {

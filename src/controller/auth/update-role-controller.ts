@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 import { userModel } from '../../models/userModel';
-import { UpdateRoleRequest } from '../../interface/api/update-role/updateRoleRequest.interface';
+import { UpdateRoleRequest } from '../../interface/api/auth/update-role/updateRoleRequest.interface';
 import { roleModel } from '../../models/rolesModel';
 import { canUpdateRole } from '../../lib/canUpdateRole';
 

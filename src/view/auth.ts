@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
-import { LoginRequest } from '../interface/api/login/loginRequest.interface';
+import { LoginRequest } from '../interface/api/auth/login/loginRequest.interface';
 import { loginController } from '../controller/auth/loginController';
 import { registerController } from '../controller/auth/registerController';
-import { verifyToken } from '../middlewares/authMiddleWare';
+import { authMiddleWare } from '../middlewares/authMiddleWare';
 import { updateRoleController } from '../controller/auth/update-role-controller';
 import { currentUserController } from '../controller/auth/currentUser.Controller';
 import { forgetPasswordController } from '../controller/auth/forgetPasswordController';
@@ -18,11 +18,11 @@ router.post('/login', async (req: Request, res: Response) => {
   loginController(req, res);
 });
 
-router.post('/update-role', verifyToken, async (req: Request, res: Response) => {
+router.post('/update-role', authMiddleWare, async (req: Request, res: Response) => {
   updateRoleController(req, res);
 });
 
-router.get('/current-user', verifyToken, (req: Request, res: Response) => {
+router.get('/current-user', authMiddleWare, (req: Request, res: Response) => {
   currentUserController(req, res);
 });
 

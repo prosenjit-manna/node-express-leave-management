@@ -2,9 +2,9 @@ import { userModel } from '../../models/userModel';
 
 import { Response, Request } from 'express';
 import bcrypt from 'bcrypt';
-import { sendErrorResponse } from '../../lib/errorResponse';
+import { sendErrorResponse } from '../../lib/sendResponse';
 import { sendMail } from '../../lib/mail-service';
-import { ResetPasswordRequest } from '../../interface/api/resetPassword/resetPasswordRequest.interface';
+import { ResetPasswordRequest } from '../../interface/api/auth/resetPassword/resetPasswordRequest.interface';
 
 export async function resetPasswordController(req: Request, res: Response) {
   try {

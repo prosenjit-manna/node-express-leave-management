@@ -1,9 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { Employee } from '../interface/data/employee.interface';
 
 const employeeSchema = new mongoose.Schema<Employee>(
   {
-    name: { type: String, required: true, unique: true },
+    userId: { type: Schema.Types.ObjectId, required: true, unique: true },
+    name: { type: String, required: true },
     phone: { type: String, required: true },
     gender: { type: String, required: true },
     dob: { type: String, required: true },

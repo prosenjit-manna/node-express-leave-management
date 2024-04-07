@@ -22,9 +22,8 @@
 - Role
 
 # In Progress
+- Employee CRUD
 - CRUD + Data Model
-
-
 
 ## Backlog 
 - JWT token validity update 

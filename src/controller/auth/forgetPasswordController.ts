@@ -1,8 +1,8 @@
-import { ForgetPasswordRequest } from '../../interface/api/forgetPassword/forgetPasswordRequest.interface';
+import { ForgetPasswordRequest } from '../../interface/api/auth/forgetPassword/forgetPasswordRequest.interface';
 import { userModel } from '../../models/userModel';
 
 import { Response, Request } from 'express';
-import { sendErrorResponse } from '../../lib/errorResponse';
+import { sendErrorResponse } from '../../lib/sendResponse';
 import { sendMail } from '../../lib/mail-service';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';

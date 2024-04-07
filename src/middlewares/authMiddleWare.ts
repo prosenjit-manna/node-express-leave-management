@@ -5,7 +5,7 @@ import { AppJwtPayload } from './authMiddleWare.interface';
 import { userModel } from '../models/userModel';
 import { roleModel } from '../models/rolesModel';
 
-export async function verifyToken(req: Request, res: Response, next: NextFunction) {
+export async function authMiddleWare(req: Request, res: Response, next: NextFunction) {
   const token = req.header('Authorization');
 
   if (!token) return res.status(401).json({ error: 'Access denied' });

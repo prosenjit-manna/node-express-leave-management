@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { LoginRequest } from '../../interface/api/login/loginRequest.interface';
-import { LoginResponse } from '../../interface/api/login/loginResponse.interface';
+import { LoginRequest } from '../../interface/api/auth/login/loginRequest.interface';
+import { LoginResponse } from '../../interface/api/auth/login/loginResponse.interface';
 import { userModel } from '../../models/userModel';
 import bcrypt from 'bcrypt';
 import { roleModel } from '../../models/rolesModel';

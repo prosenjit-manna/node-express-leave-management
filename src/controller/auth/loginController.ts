@@ -3,7 +3,7 @@ import { userModel } from '../../models/userModel';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { get_env } from '../../lib/get-env';
-import { sendErrorResponse } from '../../lib/errorResponse';
+import { sendErrorResponse } from '../../lib/sendResponse';
 import { differenceInMinutes } from 'date-fns';
 
 export async function loginController(req: Request, res: Response) {
