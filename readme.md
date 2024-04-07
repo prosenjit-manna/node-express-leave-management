@@ -15,13 +15,14 @@
 - Role update
 - Dynamic role
 - Registration with email verification 
+- User Types 
 
 ### Seed 
 - User
 - Role
 
 # In Progress
-- User Types 
+
 
 
 ## Backlog 

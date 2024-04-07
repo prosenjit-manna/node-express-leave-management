@@ -11,18 +11,18 @@ export async function loginController(req: Request, res: Response) {
     const { username, password, verificationToken } = req.body;
     const user = await userModel.findOne({ username }).select('+password');
 
-    if (!user?.emailVerified && !verificationToken) {
-      return res.status(401).json({ error: 'Your account is not verified. Please check your mail for verification token' });
-    }
-
-    if (verificationToken !== user?.emailVerificationToken) {
-      return res.status(401).json({ error: 'Verification token is incorrect' });
-    }
-
     if (!user) {
       return res.status(401).json({ error: 'Authentication failed' });
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!user?.emailVerified && !verificationToken) {
+      return res.status(401).json({ error: 'Your account is not verified. Please check your mail for verification token' });
+    }
+
+    if (verificationToken !== user?.emailVerificationToken && !user?.emailVerified) {
+      return res.status(401).json({ error: 'Verification token is incorrect' });
+    }
 
     if (user.lockoutTime && user.failedAttempt === 4) {
       const diffMin = Math.abs(differenceInMinutes(user.lockoutTime, new Date()));
@@ -39,7 +39,7 @@ export async function loginController(req: Request, res: Response) {
       return res.status(401).json({ error: `Authentication failed. Remaining attempt ${4 - attempt}` });
     }
 
-    await user?.updateOne({ failedAttempt: 0, lockoutTime: null });
+    await user?.updateOne({ failedAttempt: 0, lockoutTime: null, emailVerified: true });
 
     const token = jwt.sign({ userId: user._id }, get_env.JSON_WEB_TOKEN_SECRET, {
       expiresIn: get_env.JSON_WEB_TOKEN_EXPIRY,

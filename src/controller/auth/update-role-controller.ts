@@ -2,7 +2,7 @@ import { Response, Request } from 'express';
 import { userModel } from '../../models/userModel';
 import { UpdateRoleRequest } from '../../interface/api/update-role/updateRoleRequest.interface';
 import { roleModel } from '../../models/rolesModel';
-import { UserType } from '../../interface/data/userType.enum';
+import { canUpdateRole } from '../../lib/canUpdateRole';
 
 /**
  * App owner can update to any role
@@ -16,13 +16,13 @@ export async function updateRoleController(req: Request, res: Response) {
     }
     const body = req.body as UpdateRoleRequest;
     const user = await userModel.findOne({ _id: body.userId });
-    const role = await roleModel.findOne({ name: body.role });
+    const role = await roleModel.findOne({ _id: body.roleId });
 
-    if (req.user.userType === UserType.APP_OWNER && req.privileges.role.update) {
-      await user?.updateOne({ role: body.role, roleId: role?.id }).where({ _id: body.userId });
-      res.status(200).send({ message: 'Updated' });
-    } else if (req.user.userType === UserType.ORG_OWNER && req.privileges.role.update) {
-      await user?.updateOne({ role: body.role, roleId: role?.id }).where({ _id: body.userId });
+    if (!user || !role) {
+      return res.status(500).send({ message: 'User or role not found' });
+    }
+    if (req.privileges.role.update && canUpdateRole(req.user, role)) {
+      await user?.updateOne({ role: role.name, roleId: role?.id }).where({ _id: body.userId });
       res.status(200).send({ message: 'Updated' });
     } else {
       res.status(200).send({ message: "You don't have access to update" });

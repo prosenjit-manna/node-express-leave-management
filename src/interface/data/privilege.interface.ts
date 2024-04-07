@@ -1,3 +1,5 @@
+import { UserType } from './userType.enum';
+
 export interface Privilege {
   create?: boolean;
   list?: boolean;
@@ -8,6 +10,7 @@ export interface Privilege {
 
 export interface Privileges {
   name: string;
+  type?: UserType;
   employee: Privilege | null;
   leave: Privilege | null;
   role?: Privilege | null;

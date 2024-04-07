@@ -11,6 +11,7 @@ const privilegeSchema = new mongoose.Schema<Privilege>({
 
 const rolesSchema = new mongoose.Schema<Privileges>({
   name: { type: String, required: true, unique: true },
+  type: { type: String },
   employee: {
     type: privilegeSchema,
   },

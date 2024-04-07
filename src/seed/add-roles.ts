@@ -1,11 +1,11 @@
 import { Privileges } from '../interface/data/privilege.interface';
-import { Role } from '../interface/data/roles.enum';
+import { UserType } from '../interface/data/userType.enum';
 import { appLoggerLevel, appLogger } from '../lib/logger';
 import { roleModel } from '../models/rolesModel';
 
-async function addRole({ privileges, role }: { privileges: Privileges; role: Role }) {
+async function addRole({ privileges }: { privileges: Privileges }) {
   try {
-    const roleDoc = await roleModel.findOne({ name: role });
+    const roleDoc = await roleModel.findOne({ name: privileges.name });
 
     if (!roleDoc) {
       const owner = new roleModel(privileges);
@@ -36,10 +36,10 @@ export async function addRoles() {
     role: {
       update: true,
     },
-    name: Role.APP_OWNER,
+    name: UserType.APP_OWNER,
   };
 
-  await addRole({ privileges: ownerRoleData, role: Role.APP_OWNER });
+  await addRole({ privileges: ownerRoleData });
 
   const orgRoleData: Privileges = {
     leave: {
@@ -57,9 +57,9 @@ export async function addRoles() {
     role: {
       update: true,
     },
-    name: Role.ORG_OWNER,
+    name: UserType.ORG_OWNER,
   };
-  await addRole({ privileges: orgRoleData, role: Role.ORG_OWNER });
+  await addRole({ privileges: orgRoleData });
 
   const employeeRoleData: Privileges = {
     leave: {
@@ -76,9 +76,9 @@ export async function addRoles() {
       update: true,
       documentOwner: true,
     },
-    name: Role.USER,
+    name: UserType.USER,
   };
-  await addRole({ privileges: employeeRoleData, role: Role.USER });
+  await addRole({ privileges: employeeRoleData });
 
   appLogger.log(appLoggerLevel.info, 'Roles Added');
 }
