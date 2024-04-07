@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { LoginRequest } from '../apiModel/login/loginRequest.interface';
-import { loginController } from '../controller/auth/login';
-import { registerController } from '../controller/auth/register';
+import { loginController } from '../controller/auth/loginController';
+import { registerController } from '../controller/auth/registerController';
 import { verifyToken } from '../middlewares/authMiddleWare';
 import { updateRoleController } from '../controller/auth/update-role-controller';
 import { currentUserController } from '../controller/auth/currentUser.Controller';

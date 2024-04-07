@@ -17,10 +17,10 @@ export interface Privileges extends mongoose.Document {
 }
 
 const privilegeSchema = new mongoose.Schema<Privilege>({
-  create: { type: Boolean, required: true },
-  list: { type: Boolean, required: true },
-  delete: { type: Boolean, required: true },
-  update: { type: Boolean, required: true },
+  create: { type: Boolean },
+  list: { type: Boolean },
+  delete: { type: Boolean },
+  update: { type: Boolean },
   documentOwner: { type: Boolean },
 });
 

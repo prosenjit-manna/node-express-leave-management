@@ -3,7 +3,7 @@ import { sendErrorResponse } from '../../lib/errorResponse';
 
 export async function currentUserController(req: Request, res: Response) {
   try {
-    if (req.user.id) {
+    if (req.user._id) {
       res.send({ user: req.user, privileges: req.privileges });
     } else {
       sendErrorResponse({ message: 'User Not Found', res });

@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import { Role } from '../apiModel/roles.enum';
-export interface User extends mongoose.Document {
+export interface User {
+  _id?: string;
   username: string;
   password: string;
   passwordResetToken?: string;
@@ -8,7 +9,8 @@ export interface User extends mongoose.Document {
   lockoutTime?: Date;
   role: Role;
   roleId: Schema.Types.ObjectId;
-  _id?: string;
+  emailVerified: boolean;
+  emailVerificationToken?: string;
 }
 
 // eslint-disable-next-line no-useless-escape
@@ -19,20 +21,25 @@ const validateEmail = function (email: string) {
   return re.test(email);
 };
 
-const userSchema = new mongoose.Schema<User>({
-  username: {
-    type: String,
-    unique: true,
-    required: true,
-    validate: [validateEmail, 'Please fill a valid email address'],
-    match: [re, 'Please fill a valid email address'],
+const userSchema = new mongoose.Schema<User>(
+  {
+    username: {
+      type: String,
+      unique: true,
+      required: true,
+      validate: [validateEmail, 'Please fill a valid email address'],
+      match: [re, 'Please fill a valid email address'],
+    },
+    password: { type: String, required: true, select: false },
+    role: { type: String, required: true },
+    roleId: { type: Schema.Types.ObjectId, required: true },
+    passwordResetToken: { type: String, required: false },
+    lockoutTime: { type: Date },
+    failedAttempt: { type: Number },
+    emailVerified: { type: Boolean, default: false },
+    emailVerificationToken: { type: String, default: false },
   },
-  password: { type: String, required: true, select: false },
-  role: { type: String, required: true },
-  roleId: { type: Schema.Types.ObjectId, required: true },
-  passwordResetToken: { type: String, required: false },
-  lockoutTime: { type: Date },
-  failedAttempt: { type: Number },
-});
+  { timestamps: true },
+);
 
 export const userModel = mongoose.model<User>('User', userSchema);

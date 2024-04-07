@@ -18,6 +18,9 @@ export const get_env = cleanEnv(process.env, {
   SMTP_PORT: num({ desc: 'SMTP Port' }),
   SMTP_SENDER: str({ desc: 'Sender Email' }),
 
+  // Frontend Routes
+  EMAIL_VERIFICATION_URL: str({ desc: 'Email verification URL', default: 'http://localhost:3000/login' }),
+
   // Seed
   OWNER_EMAIL: str({ desc: 'OWNER EMAIL' }),
   SEED_DEFAULT_PASSWORD: str({ desc: 'Seed default password' }),

@@ -1,12 +1,12 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import { LoggerLevel, logger } from '../lib/logger';
+import { appLoggerLevel, appLogger } from '../lib/logger';
 import { dbConnect } from '../lib/connection';
 import { addRoles } from './add-roles';
 import { addUsers } from './add-users';
 
 async function main() {
-  logger.log(LoggerLevel.info, 'Seed Started 🌱🌱');
+  appLogger.log(appLoggerLevel.info, 'Seed Started 🌱🌱');
 
   const connection = await dbConnect();
 
@@ -16,7 +16,7 @@ async function main() {
 
   await connection?.disconnect();
 
-  logger.log(LoggerLevel.info, 'Seed Completed ✅ ✅');
+  appLogger.log(appLoggerLevel.info, 'Seed Completed ✅ ✅');
 }
 
 main();

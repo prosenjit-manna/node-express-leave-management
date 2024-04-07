@@ -8,8 +8,16 @@ import { differenceInMinutes } from 'date-fns';
 
 export async function loginController(req: Request, res: Response) {
   try {
-    const { username, password } = req.body;
+    const { username, password, verificationToken } = req.body;
     const user = await userModel.findOne({ username }).select('+password');
+
+    if (!user?.emailVerified && !verificationToken) {
+      return res.status(401).json({ error: 'Your account is not verified. Please check your mail for verification token' });
+    }
+
+    if (verificationToken !== user?.emailVerificationToken) {
+      return res.status(401).json({ error: 'Verification token is incorrect' });
+    }
 
     if (!user) {
       return res.status(401).json({ error: 'Authentication failed' });

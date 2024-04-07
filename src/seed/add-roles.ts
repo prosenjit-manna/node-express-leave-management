@@ -1,11 +1,25 @@
 import { Privileges } from '../apiModel/privilege.interface';
 import { Role } from '../apiModel/roles.enum';
-import { LoggerLevel, logger } from '../lib/logger';
+import { appLoggerLevel, appLogger } from '../lib/logger';
 import { roleModel } from '../models/rolesModel';
+
+async function addRole({ privileges, role }: { privileges: Privileges; role: Role }) {
+  try {
+    const roleDoc = await roleModel.findOne({ name: role });
+
+    if (!roleDoc) {
+      const owner = new roleModel(privileges);
+      await owner.save();
+    } else {
+      await roleDoc.updateOne(privileges);
+    }
+  } catch (e) {
+    appLogger.log(appLoggerLevel.error, 'addRole error', e);
+  }
+}
 
 // Adding Roles
 export async function addRoles() {
-  const ownerRole = await roleModel.findOne({ name: Role.APP_OWNER });
   const ownerRoleData: Privileges = {
     leave: {
       create: true,
@@ -25,14 +39,9 @@ export async function addRoles() {
     name: Role.APP_OWNER,
     type: Role.APP_OWNER,
   };
-  if (!ownerRole) {
-    const owner = new roleModel(ownerRoleData);
-    await owner.save();
-  } else {
-    await ownerRole.updateOne(ownerRoleData);
-  }
 
-  const orgRole = await roleModel.findOne({ name: Role.ORG_OWNER });
+  await addRole({ privileges: ownerRoleData, role: Role.APP_OWNER });
+
   const orgRoleData: Privileges = {
     leave: {
       create: true,
@@ -52,15 +61,8 @@ export async function addRoles() {
     name: Role.ORG_OWNER,
     type: Role.ORG_OWNER,
   };
+  await addRole({ privileges: orgRoleData, role: Role.ORG_OWNER });
 
-  if (!orgRole) {
-    const hr = new roleModel(orgRoleData);
-    await hr.save();
-  } else {
-    await orgRole.updateOne(orgRoleData);
-  }
-
-  const employeeRole = await roleModel.findOne({ name: Role.USER });
   const employeeRoleData: Privileges = {
     leave: {
       create: true,
@@ -79,12 +81,7 @@ export async function addRoles() {
     type: Role.USER,
     name: Role.USER,
   };
-  if (!employeeRole) {
-    const employee = new roleModel(employeeRoleData);
-    await employee.save();
-  } else {
-    await employeeRole.updateOne(employeeRoleData);
-  }
+  await addRole({ privileges: employeeRoleData, role: Role.USER });
 
-  logger.log(LoggerLevel.info, 'Roles Added');
+  appLogger.log(appLoggerLevel.info, 'Roles Added');
 }
