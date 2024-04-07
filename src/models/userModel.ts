@@ -1,18 +1,18 @@
 import mongoose, { Schema } from 'mongoose';
 import { Role } from '../apiModel/roles.enum';
-interface User extends mongoose.Document {
+export interface User extends mongoose.Document {
   username: string;
   password: string;
   passwordResetToken?: string;
   failedAttempt?: number;
   lockoutTime?: Date;
   role: Role;
-  roleId: String;
-  _id: string;
+  roleId: Schema.Types.ObjectId;
+  _id?: string;
 }
 
 // eslint-disable-next-line no-useless-escape
-const re = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const validateEmail = function (email: string) {
   // eslint-disable-next-line no-useless-escape

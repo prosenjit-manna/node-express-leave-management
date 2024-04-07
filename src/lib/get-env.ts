@@ -3,6 +3,7 @@ import { cleanEnv, str, num } from 'envalid';
 export const get_env = cleanEnv(process.env, {
   MODE: str({ default: 'development' }),
 
+  // Application
   PORT: num({ desc: 'Server Port' }),
   SERVER_URL: str({ desc: 'Server API URL' }),
   MONGO_DB_URI: str({ desc: 'mongodb://{userName}:{password}@{host}:{port}' }),
@@ -16,4 +17,8 @@ export const get_env = cleanEnv(process.env, {
   SMTP_PASSWORD: str({ desc: 'SMTP Password' }),
   SMTP_PORT: num({ desc: 'SMTP Port' }),
   SMTP_SENDER: str({ desc: 'Sender Email' }),
+
+  // Seed
+  OWNER_EMAIL: str({ desc: 'OWNER EMAIL' }),
+  SEED_DEFAULT_PASSWORD: str({ desc: 'Seed default password' }),
 });
