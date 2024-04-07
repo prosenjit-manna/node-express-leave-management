@@ -14,15 +14,21 @@
 - File based logger with winston
 - Role update
 - Dynamic role
+- Registration with email verification 
 
 ### Seed 
 - User
 - Role
 
 # In Progress
-- Registration with email verification 
+- JWT token validity update 
 
 ## Backlog 
-- JWT token validity update 
+- User Types 
+- Organization Collection Crud
+- Employee Collection Crud
+- Leave Collection Crud 
+- Leave Settings 
+
 
 
