@@ -1,7 +1,7 @@
 import { Response, Request } from 'express';
-import { Role } from '../../apiModel/roles.enum';
+import { Role } from '../../interface/data/roles.enum';
 import { userModel } from '../../models/userModel';
-import { UpdateRoleRequest } from '../../apiModel/update-role/updateRoleRequest.interface';
+import { UpdateRoleRequest } from '../../interface/api/update-role/updateRoleRequest.interface';
 import { roleModel } from '../../models/rolesModel';
 
 /**

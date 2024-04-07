@@ -1,17 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { Role } from '../apiModel/roles.enum';
-export interface User {
-  _id?: string;
-  username: string;
-  password: string;
-  passwordResetToken?: string;
-  failedAttempt?: number;
-  lockoutTime?: Date;
-  role: Role;
-  roleId: Schema.Types.ObjectId;
-  emailVerified: boolean;
-  emailVerificationToken?: string;
-}
+import { User } from '../interface/data/user.interface';
 
 // eslint-disable-next-line no-useless-escape
 const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

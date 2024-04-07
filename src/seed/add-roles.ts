@@ -1,5 +1,5 @@
-import { Privileges } from '../apiModel/privilege.interface';
-import { Role } from '../apiModel/roles.enum';
+import { Privileges } from '../interface/data/privilege.interface';
+import { Role } from '../interface/data/roles.enum';
 import { appLoggerLevel, appLogger } from '../lib/logger';
 import { roleModel } from '../models/rolesModel';
 

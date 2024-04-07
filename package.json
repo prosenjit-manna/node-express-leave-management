@@ -1,8 +1,7 @@
 {
-  "name": "express-typescript-starter",
+  "name": "leave-management-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Leave management app with typescript express and mongo",
   "scripts": {
     "start": "ts-node-dev  --files src/index.ts",
     "seed": "ts-node  --files src/seed/index.ts",
@@ -11,8 +10,8 @@
     "lint": "eslint ./src/**/*.ts --fix",
     "prepare": "husky install"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Mongodb", "Express", "Typescript", "Rest Api"],
+  "author": "Prosenjit Manna",
   "license": "ISC",
   "dependencies": {
     "@sentry/node": "^7.109.0",

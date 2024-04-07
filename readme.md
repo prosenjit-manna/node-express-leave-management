@@ -21,10 +21,11 @@
 - Role
 
 # In Progress
-- JWT token validity update 
+- User Types 
+
 
 ## Backlog 
-- User Types 
+- JWT token validity update 
 - Organization Collection Crud
 - Employee Collection Crud
 - Leave Collection Crud 

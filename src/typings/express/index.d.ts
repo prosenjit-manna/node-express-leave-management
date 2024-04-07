@@ -1,4 +1,4 @@
-import { Privileges } from '../../apiModel/privilege.interface';
+import { Privileges } from '../../interface/data/privilege.interface';
 import { User } from '../../models/userModel';
 
 declare global {

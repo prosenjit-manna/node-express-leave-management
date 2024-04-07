@@ -1,8 +1,9 @@
-import { Role } from '../apiModel/roles.enum';
+import { Role } from '../interface/data/roles.enum';
+import { User } from '../interface/data/user.interface';
 import { get_env } from '../lib/get-env';
 import { appLoggerLevel, appLogger } from '../lib/logger';
 import { roleModel } from '../models/rolesModel';
-import { User, userModel } from '../models/userModel';
+import { userModel } from '../models/userModel';
 import bcrypt from 'bcrypt';
 
 async function addUser({ username, role }: { username: string; role: Role }) {

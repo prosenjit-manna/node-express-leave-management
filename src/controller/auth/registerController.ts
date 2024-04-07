@@ -1,9 +1,9 @@
 import { Response } from 'express';
-import { LoginRequest } from '../../apiModel/login/loginRequest.interface';
-import { LoginResponse } from '../../apiModel/login/loginResponse.interface';
+import { LoginRequest } from '../../interface/api/login/loginRequest.interface';
+import { LoginResponse } from '../../interface/api/login/loginResponse.interface';
 import { userModel } from '../../models/userModel';
 import bcrypt from 'bcrypt';
-import { Role } from '../../apiModel/roles.enum';
+import { Role } from '../../interface/data/roles.enum';
 import { roleModel } from '../../models/rolesModel';
 import { sendMail } from '../../lib/mail-service';
 import { get_env } from '../../lib/get-env';

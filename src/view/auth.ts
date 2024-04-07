@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { LoginRequest } from '../apiModel/login/loginRequest.interface';
+import { LoginRequest } from '../interface/api/login/loginRequest.interface';
 import { loginController } from '../controller/auth/loginController';
 import { registerController } from '../controller/auth/registerController';
 import { verifyToken } from '../middlewares/authMiddleWare';
