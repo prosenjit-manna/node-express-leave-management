@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { User } from '../interface/data/user.interface';
+import { UserType } from '../interface/data/userType.enum';
 
 // eslint-disable-next-line no-useless-escape
 const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -21,6 +22,7 @@ const userSchema = new mongoose.Schema<User>(
     password: { type: String, required: true, select: false },
     role: { type: String, required: true },
     roleId: { type: Schema.Types.ObjectId, required: true },
+    userType: { type: Schema.Types.String, required: true, default: UserType.USER },
     passwordResetToken: { type: String, required: false },
     lockoutTime: { type: Date },
     failedAttempt: { type: Number },

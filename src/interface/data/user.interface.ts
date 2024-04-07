@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { Role } from './roles.enum';
+import { UserType } from './userType.enum';
 
 export interface User {
   _id?: string;
@@ -8,8 +8,9 @@ export interface User {
   passwordResetToken?: string;
   failedAttempt?: number;
   lockoutTime?: Date;
-  role: Role;
+  role: string;
   roleId: Schema.Types.ObjectId;
   emailVerified: boolean;
   emailVerificationToken?: string;
+  userType: UserType;
 }

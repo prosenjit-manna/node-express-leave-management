@@ -8,7 +8,6 @@ export interface Privilege {
 
 export interface Privileges {
   name: string;
-  type: string;
   employee: Privilege | null;
   leave: Privilege | null;
   role?: Privilege | null;

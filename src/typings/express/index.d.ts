@@ -1,5 +1,5 @@
 import { Privileges } from '../../interface/data/privilege.interface';
-import { User } from '../../models/userModel';
+import { User } from '../../interface/data/user.interface';
 
 declare global {
   namespace Express {

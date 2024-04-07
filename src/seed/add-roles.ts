@@ -37,7 +37,6 @@ export async function addRoles() {
       update: true,
     },
     name: Role.APP_OWNER,
-    type: Role.APP_OWNER,
   };
 
   await addRole({ privileges: ownerRoleData, role: Role.APP_OWNER });
@@ -59,7 +58,6 @@ export async function addRoles() {
       update: true,
     },
     name: Role.ORG_OWNER,
-    type: Role.ORG_OWNER,
   };
   await addRole({ privileges: orgRoleData, role: Role.ORG_OWNER });
 
@@ -78,7 +76,6 @@ export async function addRoles() {
       update: true,
       documentOwner: true,
     },
-    type: Role.USER,
     name: Role.USER,
   };
   await addRole({ privileges: employeeRoleData, role: Role.USER });

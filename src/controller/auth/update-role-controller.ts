@@ -1,8 +1,8 @@
 import { Response, Request } from 'express';
-import { Role } from '../../interface/data/roles.enum';
 import { userModel } from '../../models/userModel';
 import { UpdateRoleRequest } from '../../interface/api/update-role/updateRoleRequest.interface';
 import { roleModel } from '../../models/rolesModel';
+import { UserType } from '../../interface/data/userType.enum';
 
 /**
  * App owner can update to any role
@@ -18,10 +18,10 @@ export async function updateRoleController(req: Request, res: Response) {
     const user = await userModel.findOne({ _id: body.userId });
     const role = await roleModel.findOne({ name: body.role });
 
-    if (req.user.role === Role.APP_OWNER) {
+    if (req.user.userType === UserType.APP_OWNER && req.privileges.role.update) {
       await user?.updateOne({ role: body.role, roleId: role?.id }).where({ _id: body.userId });
       res.status(200).send({ message: 'Updated' });
-    } else if (req.user.role === Role.ORG_OWNER && body.role !== Role.APP_OWNER) {
+    } else if (req.user.userType === UserType.ORG_OWNER && req.privileges.role.update) {
       await user?.updateOne({ role: body.role, roleId: role?.id }).where({ _id: body.userId });
       res.status(200).send({ message: 'Updated' });
     } else {
