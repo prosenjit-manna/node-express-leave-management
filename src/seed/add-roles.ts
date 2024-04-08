@@ -70,10 +70,6 @@ export async function addRoles() {
       documentOwner: true,
     },
     employee: {
-      create: true,
-      list: true,
-      delete: true,
-      update: true,
       documentOwner: true,
     },
     name: UserType.USER,
