@@ -21,14 +21,15 @@
 ### Seed 
 - User
 - Role
+- Employee
 
 # In Progress
 - CRUD + Data Model
+- Leave Collection Crud 
 
 ## Backlog 
 - JWT token validity update 
 - Organization Collection Crud
-- Leave Collection Crud 
 - Leave Settings 
 
 
