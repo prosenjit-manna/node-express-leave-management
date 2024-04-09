@@ -16,19 +16,18 @@
 - Dynamic role
 - Registration with email verification 
 - User Types 
+- Employee CRUD
 
 ### Seed 
 - User
 - Role
 
 # In Progress
-- Employee CRUD
 - CRUD + Data Model
 
 ## Backlog 
 - JWT token validity update 
 - Organization Collection Crud
-- Employee Collection Crud
 - Leave Collection Crud 
 - Leave Settings 
 
