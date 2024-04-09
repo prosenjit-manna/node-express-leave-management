@@ -9,4 +9,5 @@ export interface Leave {
   count: number;
   leaveType: LeaveType;
   status: LeaveStatus;
+  approvedBy: Schema.Types.ObjectId;
 }

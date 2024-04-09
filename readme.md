@@ -23,6 +23,7 @@
 - Employee
 
 # In Progress
+- Edit Employee Routes
 - CRUD + Data Model
 - Leave Collection Crud 
 

@@ -7,6 +7,7 @@ import authRoutes from './view/auth';
 import { dbConnect } from './lib/connection';
 import { sentryInit } from './lib/sentry-error-tracking';
 import employeeRouter from './view/employee';
+import leaveRoute from './view/leave';
 
 dbConnect();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 
 app.use('/auth', authRoutes);
 app.use('/employee', employeeRouter);
+app.use('/leave', leaveRoute);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('API server up and running!');
@@ -25,3 +27,4 @@ app.get('/', (req: Request, res: Response) => {
 app.listen(get_env.PORT, () => {
   console.log(`API Server running at http://localhost:${get_env.PORT}`);
 });
+
