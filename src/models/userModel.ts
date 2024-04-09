@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema<User>(
     lockoutTime: { type: Date },
     failedAttempt: { type: Number },
     emailVerified: { type: Boolean, default: false },
-    emailVerificationToken: { type: String, default: false },
+    emailVerificationToken: { type: String },
   },
   { timestamps: true },
 );

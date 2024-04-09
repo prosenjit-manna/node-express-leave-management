@@ -12,7 +12,6 @@
 - Forget password and Reset password with token 
 - Get logged in user information 
 - File based logger with winston
-- Role update
 - Dynamic role
 - Registration with email verification 
 - User Types 
@@ -31,6 +30,7 @@
 - JWT token validity update 
 - Organization Collection Crud
 - Leave Settings 
+- Custom Role
 
 
 
