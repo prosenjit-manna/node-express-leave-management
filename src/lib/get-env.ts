@@ -24,4 +24,7 @@ export const get_env = cleanEnv(process.env, {
   // Seed
   OWNER_EMAIL: str({ desc: 'OWNER EMAIL' }),
   SEED_DEFAULT_PASSWORD: str({ desc: 'Seed default password' }),
+
+  // Pagination
+  ROW_LIMIT_PER_PAGE: num({ default: 20, desc: 'Number of row per page' }),
 });

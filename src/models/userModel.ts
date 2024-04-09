@@ -32,4 +32,4 @@ const userSchema = new mongoose.Schema<User>(
   { timestamps: true },
 );
 
-export const userModel = mongoose.model<User>('User', userSchema);
+export const userModel = mongoose.model<User>('user', userSchema);
