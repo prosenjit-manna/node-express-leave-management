@@ -17,7 +17,9 @@ export async function listEmployeeController(req: Request, res: Response) {
     return sendErrorResponse({ error, res });
   }
 
-  let listQuery = {};
+  let listQuery: any = {
+    $or: [{ deletedAt: { $eq: null } }, { deletedAt: { $exists: true, $eq: undefined } }],
+  };
 
   if (body.name) {
     listQuery = {

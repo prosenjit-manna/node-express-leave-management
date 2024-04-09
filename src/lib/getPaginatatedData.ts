@@ -18,5 +18,7 @@ export async function getPaginatedData({ model, query, paginationQuery }: { quer
   return {
     list,
     pagination,
+    listPerPage: get_env.ROW_LIMIT_PER_PAGE,
+    totalRows: row_counts,
   };
 }
