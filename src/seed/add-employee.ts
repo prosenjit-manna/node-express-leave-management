@@ -16,7 +16,7 @@ async function addEmployee(
   if (!employee) {
     await employeeModel.create({
       userId: user.id,
-      name: faker.internet.displayName(),
+      name: faker.person.fullName(),
       phone: faker.phone.number(),
       gender: faker.helpers.arrayElement(['M', 'F']),
       dob: faker.date.anytime(),
