@@ -8,6 +8,7 @@ const employeeSchema = new mongoose.Schema<Employee>(
     phone: { type: String, required: true },
     gender: { type: String, required: true },
     dob: { type: String, required: true },
+    deletedAt: { type: Date },
   },
   { timestamps: true },
 );

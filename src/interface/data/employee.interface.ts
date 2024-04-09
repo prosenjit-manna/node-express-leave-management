@@ -7,4 +7,5 @@ export interface Employee {
   phone: string;
   gender: Gender;
   dob: string;
+  deletedAt: Date;
 }
