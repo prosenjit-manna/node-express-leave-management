@@ -17,15 +17,16 @@
 - User Types 
 - Employee CRUD
 
+
 ### Seed 
 - User
 - Role
 - Employee
 
 # In Progress
-- Edit Employee Routes
-- CRUD + Data Model
 - Leave Collection Crud 
+- Edit Employee Routes
+
 
 ## Backlog 
 - JWT token validity update 

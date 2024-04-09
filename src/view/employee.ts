@@ -4,10 +4,12 @@ import { addEmployeeController } from '../controller/employee/addEmployeeControl
 import { viewEmployeeController } from '../controller/employee/viewEmployeeController';
 import { listEmployeeController } from '../controller/employee/listEmployeeController';
 import { deleteEmployeeController } from '../controller/employee/deleteEmployeeController';
+import { editEmployeeController } from '../controller/employee/editEmployeeController';
 
 const employeeRouter = express.Router();
 
 employeeRouter.post('/add', authMiddleWare, addEmployeeController);
+employeeRouter.post('/edit', authMiddleWare, editEmployeeController);
 employeeRouter.post('/view', authMiddleWare, viewEmployeeController);
 employeeRouter.post('/list', authMiddleWare, listEmployeeController);
 employeeRouter.delete('/delete', authMiddleWare, deleteEmployeeController);

@@ -6,6 +6,6 @@ export interface Employee {
   name: string;
   phone: string;
   gender: Gender;
-  dob: string;
+  dob: Date;
   deletedAt: Date;
 }
