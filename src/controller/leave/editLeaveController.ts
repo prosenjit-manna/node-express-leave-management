@@ -13,7 +13,7 @@ export async function editLeaveController(req: Request, res: Response) {
   }
 
   try {
-    const leave = await leaveModel.findById(body.userId);
+    const leave = await leaveModel.findById(body.id);
     if (!leave) {
       return sendErrorResponse({ message: 'Leave Not found', res });
     } else {

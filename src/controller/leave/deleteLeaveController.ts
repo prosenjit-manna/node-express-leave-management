@@ -13,9 +13,9 @@ export async function deleteLeaveController(req: Request, res: Response) {
   }
 
   try {
-    const leave = await leaveModel.findById(body.leaveId);
+    const leave = await leaveModel.findOne({ _id: body.leaveId });
     if (leave) {
-      leave.updateOne({ deleted: new Date() });
+      await leave.updateOne({ deletedAt: new Date() });
       return sendSuccessResponse({ res, data: leave, message: 'Leave Deleted' });
     } else {
       return sendErrorResponse({ res, message: 'Leave Not found!' });

@@ -12,7 +12,7 @@ export async function viewLeaveController(req: Request, res: Response) {
     return sendErrorResponse({ error, res });
   }
 
-  const leave = await leaveModel.findOne({ userId: body.leaveId });
+  const leave = await leaveModel.findOne({ _id: body.leaveId });
 
   if (leave) {
     return sendSuccessResponse({ res, message: 'found leave', data: leave });
