@@ -10,6 +10,7 @@ const leaveSchema = new mongoose.Schema<Leave>(
     leaveType: { type: String, required: true },
     status: { type: String },
     approvedBy: { type: Schema.Types.ObjectId },
+    deletedAt: { type: Date },
   },
   { timestamps: true },
 );

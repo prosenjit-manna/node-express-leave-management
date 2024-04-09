@@ -10,4 +10,5 @@ export interface Leave {
   leaveType: LeaveType;
   status: LeaveStatus;
   approvedBy: Schema.Types.ObjectId;
+  deletedAt: Date;
 }

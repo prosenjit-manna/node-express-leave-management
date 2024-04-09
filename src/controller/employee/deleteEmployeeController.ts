@@ -17,7 +17,7 @@ export async function deleteEmployeeController(req: Request, res: Response) {
     if (row) {
       await employeeModel.findOne({ userId: body.userId }).updateOne({ deletedAt: new Date() });
     } else {
-      sendErrorResponse({ res, message: 'Employee Not found' });
+      return sendErrorResponse({ res, message: 'Employee Not found' });
     }
     return sendSuccessResponse({ res, message: 'Deleted', data: { id: body.userId } });
   } catch (error) {
