@@ -1,3 +1,4 @@
+import { range } from 'lodash';
 import { User } from '../interface/data/user.interface';
 import { UserType } from '../interface/data/userType.enum';
 import { get_env } from '../lib/get-env';
@@ -23,11 +24,16 @@ export async function addUsers() {
     const owner_email = get_env.OWNER_EMAIL;
     const email_part = get_env.OWNER_EMAIL.split('@');
     const org_email = `${email_part[0]}-org@${email_part[1]}`;
-    const user_email = `${email_part[0]}-user@${email_part[1]}`;
 
     await addUser({ username: owner_email, role: UserType.APP_OWNER, userType: UserType.APP_OWNER });
     await addUser({ username: org_email, role: UserType.ORG_OWNER, userType: UserType.ORG_OWNER });
-    await addUser({ username: user_email, role: UserType.USER, userType: UserType.USER });
+
+    const list = range(0, 50);
+    for (const userIndex of list) {
+      const user_email = `${email_part[0]}-user-${userIndex}@${email_part[1]}`;
+      const user = { username: user_email, role: UserType.USER, userType: UserType.USER };
+      await addUser(user);
+    }
   } catch (e) {
     appLogger.log(appLoggerLevel.error, 'Add User', e);
   }
