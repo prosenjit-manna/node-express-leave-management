@@ -4,6 +4,7 @@ import { Privilege, PrivilegeDoc, Privileges } from '../interface/data/privilege
 const privilegeDocSchema = new mongoose.Schema<PrivilegeDoc>({
   policy: { type: String },
   enabled: { type: Boolean },
+  createdByOnly: { type: Boolean },
 });
 
 const privilegeSchema = new mongoose.Schema<Privilege>({
@@ -11,7 +12,6 @@ const privilegeSchema = new mongoose.Schema<Privilege>({
   list: privilegeDocSchema,
   delete: privilegeDocSchema,
   update: privilegeDocSchema,
-  documentOwner: privilegeDocSchema,
 });
 
 const rolesSchema = new mongoose.Schema<Privileges>(

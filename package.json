@@ -4,7 +4,7 @@
   "description": "Leave management app with typescript express and mongo",
   "scripts": {
     "start": "ts-node-dev  --files src/index.ts",
-    "seed": "ts-node  --files src/seed/index.ts",
+    "db:seed": "ts-node  --files src/seed/index.ts",
     "db:drop": "ts-node --files src/seed/db-drop.ts",
     "build": "tsc",
     "serve": "node dist/index.js",

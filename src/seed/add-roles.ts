@@ -20,6 +20,7 @@ async function addRole({ privileges }: { privileges: Privileges }) {
 
 // Adding Roles
 export async function addRoles() {
+  // Owner
   const ownerRoleData: Privileges = {
     leave: {
       create: { enabled: true, policy: 'User Has document create Permission' },
@@ -41,6 +42,7 @@ export async function addRoles() {
 
   await addRole({ privileges: ownerRoleData });
 
+  // ORG
   const orgRoleData: Privileges = {
     leave: {
       create: { enabled: true, policy: 'User Has document create Permission' },
@@ -62,19 +64,16 @@ export async function addRoles() {
   };
   await addRole({ privileges: orgRoleData });
 
+  // User
   const employeeRoleData: Privileges = {
     leave: {
-      create: { enabled: true, policy: 'User Has document create Permission' },
-      list: { enabled: true, policy: 'User Has list Permission' },
-      delete: { enabled: true, policy: 'User Has Delete Permission' },
-      update: { enabled: true, policy: 'User Has Edit / Update Permission' },
-      documentOwner: {
-        enabled: true,
-        policy: 'It is only impact for view routes',
-      },
+      create: { enabled: true, createdByOnly: true, policy: 'User Has document create Permission' },
+      list: { enabled: true, createdByOnly: true, policy: 'User Has list Permission' },
+      delete: { enabled: false, createdByOnly: true, policy: 'User can only delete own data' },
+      update: { enabled: true, createdByOnly: true, policy: 'User Has Edit / Update Permission' },
     },
     employee: {
-      documentOwner: { enabled: true, policy: 'If this is enabled, only created by document has permission' },
+      list: { enabled: true, createdByOnly: true, policy: 'It is only impact for view routes' },
     },
     name: UserType.USER,
   };

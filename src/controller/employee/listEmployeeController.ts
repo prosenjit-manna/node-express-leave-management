@@ -3,9 +3,16 @@ import { employeeModel } from '../../models/employeeModel';
 import { ListEmployeeRequest, listEmployeeRequestSchema } from '../../interface/api/employee/list-employee/list-employee-request.schema';
 import { sendErrorResponse, sendForbiddenResponse } from '../../lib/sendResponse';
 import { getPaginatedData } from '../../lib/getPaginatatedData';
+import { appLogger, appLoggerLevel } from '../../lib/logger';
 
 export async function listEmployeeController(req: Request, res: Response) {
   const body: ListEmployeeRequest = req.body;
+
+  if (req.privileges.employee?.list?.enabled) {
+    appLogger.log(appLoggerLevel.info, 'List Employee Routes Accessed');
+  } else {
+    return sendForbiddenResponse({ res });
+  }
 
   if (!req.privileges.employee?.list?.enabled) {
     return sendForbiddenResponse({ res });

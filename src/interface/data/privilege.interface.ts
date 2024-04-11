@@ -2,7 +2,8 @@ import { UserType } from './userType.enum';
 
 export interface PrivilegeDoc {
   policy: string;
-  enabled: boolean;
+  enabled?: boolean;
+  createdByOnly?: boolean;
 }
 
 export interface Privilege {
@@ -10,7 +11,6 @@ export interface Privilege {
   list?: PrivilegeDoc;
   delete?: PrivilegeDoc;
   update?: PrivilegeDoc;
-  documentOwner?: PrivilegeDoc;
 }
 
 export interface Privileges {

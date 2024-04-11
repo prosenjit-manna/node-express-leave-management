@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { DeleteLeaveRequest, deleteLeaveRequestSchema } from '../../interface/api/leave/delete/deleteLeaveRequest.schema';
 import { leaveModel } from '../../models/leaveModel';
-import { sendErrorResponse, sendSuccessResponse } from '../../lib/sendResponse';
+import { sendErrorResponse, sendForbiddenResponse, sendSuccessResponse } from '../../lib/sendResponse';
 
 export async function deleteLeaveController(req: Request, res: Response) {
   const body: DeleteLeaveRequest = req.body;
@@ -12,13 +12,21 @@ export async function deleteLeaveController(req: Request, res: Response) {
     sendErrorResponse({ res, error });
   }
 
+  if (!req.privileges.employee?.update?.enabled) {
+    return sendForbiddenResponse({ res });
+  }
+
   try {
     const leave = await leaveModel.findOne({ _id: body.leaveId });
-    if (leave) {
+    const is_document_owner = req.privileges?.leave?.delete?.createdByOnly && req.user._id?.toString() === leave?.userId;
+
+    if (!leave) {
+      return sendErrorResponse({ res, message: 'Leave Not found!' });
+    }
+
+    if (is_document_owner || req.privileges?.leave?.delete?.enabled) {
       await leave.updateOne({ deletedAt: new Date() });
       return sendSuccessResponse({ res, data: leave, message: 'Leave Deleted' });
-    } else {
-      return sendErrorResponse({ res, message: 'Leave Not found!' });
     }
   } catch (error) {
     sendErrorResponse({ res, error });

@@ -1,9 +1,13 @@
 import { Request, Response } from 'express';
 import { leaveModel } from '../../models/leaveModel';
-import { sendErrorResponse, sendSuccessResponse } from '../../lib/sendResponse';
+import { sendErrorResponse, sendForbiddenResponse, sendSuccessResponse } from '../../lib/sendResponse';
 import { addLeaveRequestSchema } from '../../interface/api/leave/add/addLeaveRequest.schema';
 
 export async function addLeaveController(req: Request, res: Response) {
+  if (!req.privileges.employee?.create?.enabled) {
+    return sendForbiddenResponse({ res });
+  }
+
   try {
     addLeaveRequestSchema.parse(req.body);
   } catch (error) {
