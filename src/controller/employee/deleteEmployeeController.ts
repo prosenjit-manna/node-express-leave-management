@@ -1,17 +1,11 @@
 import { Request, Response } from 'express';
 import { employeeModel } from '../../models/employeeModel';
 import { DeleteEmployeeRequest, deleteEmployeeRequestSchema } from '../../interface/api/employee/delete-employee/delete-employee-request.schema';
-import { sendErrorResponse, sendForbiddenResponse, sendSuccessResponse } from '../../lib/sendResponse';
-import { appLogger, appLoggerLevel } from '../../lib/logger';
+import { sendErrorResponse, sendSuccessResponse } from '../../lib/sendResponse';
+import { hasPrivileges } from '../../lib/hasPrivileges';
 
 export async function deleteEmployeeController(req: Request, res: Response) {
   const body: DeleteEmployeeRequest = req.body;
-
-  if (req.privileges.employee?.delete?.enabled || req.privileges.employee?.delete?.createdByOnly) {
-    appLogger.log(appLoggerLevel.info, 'Delete Employee Routes Accessed');
-  } else {
-    return sendForbiddenResponse({ res });
-  }
 
   try {
     deleteEmployeeRequestSchema.parse(body);
@@ -19,12 +13,10 @@ export async function deleteEmployeeController(req: Request, res: Response) {
     return sendErrorResponse({ error, res });
   }
 
+  await hasPrivileges({ permission: 'employee', action: 'delete', res, req });
+
   try {
     const row = await employeeModel.findOne({ userId: body.userId });
-    const is_document_owner = req.privileges?.employee?.create?.createdByOnly && req.user._id?.toString() === row?.userId;
-    if (!(req.privileges.employee?.delete?.createdByOnly && is_document_owner)) {
-      return sendForbiddenResponse({ res });
-    }
 
     if (row) {
       await employeeModel.findOne({ userId: body.userId }).updateOne({ deletedAt: new Date() });
