@@ -1,7 +1,7 @@
 # Node express typescript leave management app
 
 ### Postman Collection 
-[Postman Collection](https://www.postman.com/itobuz/workspace/node-express-typescript/collection/180560-e21d80ce-35c4-46c8-90e0-bb8a30115a72?action=share&creator=180560&active-environment=180560-1e273ed9-9dd6-4b4e-b7b5-13f3fbb518c9)
+[Postman Collection](https://www.postman.com/itobuz/workspace/node-express-typescript/collection/180560-e21d80ce-35c4-46c8-90e0-bb8a30115a72)
 
 ## Features Completed 
 
