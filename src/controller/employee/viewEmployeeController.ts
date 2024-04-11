@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { sendErrorResponse, sendForbiddenResponse, sendSuccessResponse } from '../../lib/sendResponse';
+import { sendErrorResponse, sendSuccessResponse } from '../../lib/sendResponse';
 import { employeeModel } from '../../models/employeeModel';
 import { viewEmployeeRequest, viewEmployeeRequestSchema } from '../../interface/api/employee/view-employee/view-employee-request.schema';
 import { hasPrivileges } from '../../lib/hasPrivileges';
@@ -16,15 +16,12 @@ export async function viewEmployeeController(req: Request, res: Response) {
   await hasPrivileges({ permission: 'employee', action: 'list', res, req });
 
   try {
-    const employee = await employeeModel.findOne({ userId: body.userId });
+    const employee = await employeeModel.findOne({ _id: body.employeeId });
 
-    // APP_OWNER - Can Read
-    // ORG_OWNER - CAN READ
-    // USER - Can Read only if user ID match with logged in user ID
     if (employee) {
       return sendSuccessResponse({ res, message: '', data: employee });
     } else {
-      return sendForbiddenResponse({ res });
+      sendErrorResponse({ message: 'Employee Not found', res });
     }
   } catch (error) {
     sendErrorResponse({ error, res });
