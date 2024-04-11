@@ -7,7 +7,7 @@ import { userModel } from '../../models/userModel';
 export async function addEmployeeController(req: Request, res: Response) {
   const body: EmployeeRequest = req.body;
 
-  if (!req.privileges.employee?.create) {
+  if (!req.privileges.employee?.create?.enabled) {
     return sendForbiddenResponse({ res });
   }
 

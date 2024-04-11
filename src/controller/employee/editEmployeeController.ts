@@ -6,7 +6,7 @@ import { EditEmployeeRequest, editEmployeeRequestSchema } from '../../interface/
 export async function editEmployeeController(req: Request, res: Response) {
   const body: EditEmployeeRequest = req.body;
 
-  if (!req.privileges.employee?.update) {
+  if (!req.privileges.employee?.update?.enabled) {
     return sendForbiddenResponse({ res });
   }
 

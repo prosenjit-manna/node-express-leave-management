@@ -1,11 +1,16 @@
 import { UserType } from './userType.enum';
 
+export interface PrivilegeDoc {
+  policy: string;
+  enabled: boolean;
+}
+
 export interface Privilege {
-  create?: boolean;
-  list?: boolean;
-  delete?: boolean;
-  update?: boolean;
-  documentOwner?: boolean;
+  create?: PrivilegeDoc;
+  list?: PrivilegeDoc;
+  delete?: PrivilegeDoc;
+  update?: PrivilegeDoc;
+  documentOwner?: PrivilegeDoc;
 }
 
 export interface Privileges {

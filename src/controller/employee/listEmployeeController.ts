@@ -7,7 +7,7 @@ import { getPaginatedData } from '../../lib/getPaginatatedData';
 export async function listEmployeeController(req: Request, res: Response) {
   const body: ListEmployeeRequest = req.body;
 
-  if (!req.privileges.employee?.list) {
+  if (!req.privileges.employee?.list?.enabled) {
     return sendForbiddenResponse({ res });
   }
 

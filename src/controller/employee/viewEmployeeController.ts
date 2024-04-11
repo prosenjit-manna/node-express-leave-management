@@ -13,8 +13,12 @@ export async function viewEmployeeController(req: Request, res: Response) {
   }
 
   const employee = await employeeModel.findOne({ userId: body.userId });
+  const is_document_owner = req.privileges?.employee?.documentOwner?.enabled && req.user._id?.toString() === body.userId;
 
-  if ((req.privileges?.employee?.documentOwner && req.user._id?.toString() === body.userId) || req.privileges.employee?.list) {
+  // APP_OWNER - Can Read
+  // ORG_OWNER - CAN READ
+  // USER - Can Read only if user ID match with logged in user ID
+  if (is_document_owner || req.privileges.employee?.list?.enabled) {
     return sendSuccessResponse({ res, message: '', data: employee });
   } else {
     return sendForbiddenResponse({ res });

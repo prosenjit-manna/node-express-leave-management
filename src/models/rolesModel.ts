@@ -1,12 +1,17 @@
 import mongoose from 'mongoose';
-import { Privilege, Privileges } from '../interface/data/privilege.interface';
+import { Privilege, PrivilegeDoc, Privileges } from '../interface/data/privilege.interface';
+
+const privilegeDocSchema = new mongoose.Schema<PrivilegeDoc>({
+  policy: { type: String },
+  enabled: { type: Boolean },
+});
 
 const privilegeSchema = new mongoose.Schema<Privilege>({
-  create: { type: Boolean },
-  list: { type: Boolean },
-  delete: { type: Boolean },
-  update: { type: Boolean },
-  documentOwner: { type: Boolean },
+  create: privilegeDocSchema,
+  list: privilegeDocSchema,
+  delete: privilegeDocSchema,
+  update: privilegeDocSchema,
+  documentOwner: privilegeDocSchema,
 });
 
 const rolesSchema = new mongoose.Schema<Privileges>(

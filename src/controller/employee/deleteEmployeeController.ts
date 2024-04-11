@@ -1,10 +1,14 @@
 import { Request, Response } from 'express';
 import { employeeModel } from '../../models/employeeModel';
 import { DeleteEmployeeRequest, deleteEmployeeRequestSchema } from '../../interface/api/employee/delete-employee/delete-employee-request.schema';
-import { sendErrorResponse, sendSuccessResponse } from '../../lib/sendResponse';
+import { sendErrorResponse, sendForbiddenResponse, sendSuccessResponse } from '../../lib/sendResponse';
 
 export async function deleteEmployeeController(req: Request, res: Response) {
   const body: DeleteEmployeeRequest = req.body;
+
+  if (!req.privileges.employee?.update?.enabled) {
+    return sendForbiddenResponse({ res });
+  }
 
   try {
     deleteEmployeeRequestSchema.parse(body);
