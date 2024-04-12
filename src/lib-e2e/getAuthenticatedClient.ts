@@ -4,14 +4,14 @@ import { UserType } from '../interface/data/userType.enum';
 import { axiosInstance } from '../lib/axiosInstance';
 import { get_env } from '../lib/get-env';
 
-export async function getAuthenticatedClient(userType: UserType ) {
+export async function getAuthenticatedClient(userType: UserType) {
   let user: Partial<LoginRequest> = {};
 
   const email_part = get_env.OWNER_EMAIL.split('@');
   const org_email = `${email_part[0]}-org@${email_part[1]}`;
   const user_email = `${email_part[0]}-user-${0}@${email_part[1]}`;
 
-  if (userType === UserType.ORG_OWNER) {
+  if (userType === UserType.APP_OWNER) {
     user = { username: get_env.OWNER_EMAIL, password: get_env.SEED_DEFAULT_PASSWORD };
   }
 
@@ -23,10 +23,9 @@ export async function getAuthenticatedClient(userType: UserType ) {
     user = { username: user_email, password: get_env.SEED_DEFAULT_PASSWORD };
   }
 
-  console.log('Authenticate with', user);
-  const response: LoginSuccessResponse = await axiosInstance.post(`/auth/login`, user);
-
-  axiosInstance.interceptors.request.use(
+  const response: LoginSuccessResponse = await axiosInstance().post(`/auth/login`, user);
+  const instance = axiosInstance();
+  instance.interceptors.request.use(
     (request) => {
       request.headers.Authorization = response.token;
       return request;
@@ -34,5 +33,5 @@ export async function getAuthenticatedClient(userType: UserType ) {
     (e) => Promise.reject(e),
   );
 
-  return axiosInstance;
+  return instance;
 }

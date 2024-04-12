@@ -25,7 +25,7 @@ describe('Forget Password', () => {
       email: get_env.OWNER_EMAIL,
     };
     try {
-      const response: ForgetPasswordResponse = await axiosInstance.post('/auth/forget-password', payload);
+      const response: ForgetPasswordResponse = await axiosInstance().post('/auth/forget-password', payload);
       expect(response.message).toBe('Please check your email for password reset link');
       try {
         forgetPasswordResponse.parse(response);
@@ -47,7 +47,7 @@ describe('Forget Password', () => {
       token: emailVerificationToken,
     };
     try {
-      await axiosInstance.post('/auth/reset-password', payload);
+      await axiosInstance().post('/auth/reset-password', payload);
     } catch (error) {
       expect(error).toBeUndefined();
     }

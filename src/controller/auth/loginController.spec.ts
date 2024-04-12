@@ -22,7 +22,7 @@ describe('login spec', () => {
 
   test('Successful login', async () => {
     try {
-      const response = await axiosInstance.post(`/auth/login`, {
+      const response = await axiosInstance().post(`/auth/login`, {
         username: get_env.OWNER_EMAIL,
         password: get_env.SEED_DEFAULT_PASSWORD,
       });
@@ -40,7 +40,7 @@ describe('login spec', () => {
 
   test('Failed login', async () => {
     try {
-      await axiosInstance.post(`/auth/login`, {
+      await axiosInstance().post(`/auth/login`, {
         username: '',
         password: '',
       });
@@ -58,7 +58,7 @@ describe('login spec', () => {
   test('Account not verified', async () => {
     await userModel.where({ username: get_env.OWNER_EMAIL }).updateOne({ emailVerified: false });
     try {
-      await axiosInstance.post(`/auth/login`, {
+      await axiosInstance().post(`/auth/login`, {
         username: get_env.OWNER_EMAIL,
         password: get_env.SEED_DEFAULT_PASSWORD,
       });
@@ -85,7 +85,7 @@ describe('login spec', () => {
     };
 
     try {
-      await axiosInstance.post(`/auth/login`, loginPayload);
+      await axiosInstance().post(`/auth/login`, loginPayload);
     } catch (error: any) {
       expect(error.error).toBe('Verification token is incorrect');
 
@@ -107,7 +107,7 @@ describe('login spec', () => {
         password: 'wrong_password',
       };
       try {
-        await axiosInstance.post(`/auth/login`, loginPayload);
+        await axiosInstance().post(`/auth/login`, loginPayload);
       } catch (e) {
         expect(e).not.toBeUndefined();
       }
@@ -119,7 +119,7 @@ describe('login spec', () => {
     };
 
     try {
-      await axiosInstance.post(`/auth/login`, loginPayload);
+      await axiosInstance().post(`/auth/login`, loginPayload);
     } catch (error: any) {
       expect(error.error).toBe('Authentication failed. your account has been lockout for 30 min. You can try after some time');
 

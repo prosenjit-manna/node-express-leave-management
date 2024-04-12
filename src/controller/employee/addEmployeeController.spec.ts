@@ -8,8 +8,8 @@ import mongoose from 'mongoose';
 import { UserType } from '../../interface/data/userType.enum';
 import { employeeModel } from '../../models/employeeModel';
 
-[UserType.APP_OWNER, UserType.ORG_OWNER, UserType.USER].forEach(async (el) => {
-  describe(`Add Employee ${el}`, () => {
+[UserType.APP_OWNER, UserType.ORG_OWNER, UserType.USER].forEach(async (userType) => {
+  describe(`Add Employee ${userType}`, () => {
     let testClient: AxiosInstance | null;
     let mongoInstance: typeof mongoose | undefined;
 
@@ -29,7 +29,7 @@ import { employeeModel } from '../../models/employeeModel';
     });
 
     test('Login', async () => {
-      testClient = await getAuthenticatedClient(el);
+      testClient = await getAuthenticatedClient(userType);
     });
 
     test('Add Employee', async () => {
@@ -47,12 +47,13 @@ import { employeeModel } from '../../models/employeeModel';
       };
 
       try {
-        const currentUser: any = await testClient?.get('/auth/current-user');
-        console.log(currentUser?.user?.email);
-        const res = await testClient?.post('/employee/add', payload);
-        testData.employeeId = res?.data._id;
-      } catch (e) {
-        expect(e).toBeUndefined();
+        await testClient?.post('/employee/add', payload);
+      } catch (e: any) {
+        if (userType === UserType.USER) {
+          expect(e.message).toBe('Access Forbidden!');
+        } else {
+          expect(e).toBeUndefined();
+        }
       }
     });
   });

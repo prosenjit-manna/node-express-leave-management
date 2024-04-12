@@ -5,7 +5,7 @@ import { registerErrorResponse, registerSuccessResponse } from '../../interface/
 
 describe('login spec', () => {
   test('Successful Register', async () => {
-    const response = await axiosInstance.post(`/auth/register`, {
+    const response = await axiosInstance().post(`/auth/register`, {
       username: faker.internet.email(),
       password: get_env.SEED_DEFAULT_PASSWORD,
     });
@@ -13,7 +13,7 @@ describe('login spec', () => {
   });
   test('Error Register for duplicate user', async () => {
     try {
-      await axiosInstance.post(`/auth/register`, {
+      await axiosInstance().post(`/auth/register`, {
         username: get_env.OWNER_EMAIL,
         password: get_env.SEED_DEFAULT_PASSWORD,
       });
