@@ -1,6 +1,5 @@
 import { Response } from 'express';
 import { LoginRequest } from '../../interface/api/auth/login/loginRequest.interface';
-import { LoginResponse } from '../../interface/api/auth/login/loginResponse.interface';
 import { userModel } from '../../models/userModel';
 import bcrypt from 'bcrypt';
 import { roleModel } from '../../models/rolesModel';
@@ -8,6 +7,7 @@ import { sendMail } from '../../lib/mail-service';
 import { get_env } from '../../lib/get-env';
 import { v4 as uuidv4 } from 'uuid';
 import { UserType } from '../../interface/data/userType.enum';
+import { sendErrorResponse, sendSuccessResponse } from '../../lib/sendResponse';
 
 export async function registerController({ body }: { body: LoginRequest }, res: Response) {
   try {
@@ -31,8 +31,8 @@ export async function registerController({ body }: { body: LoginRequest }, res: 
       Please verify Your email. Please follow this link ${get_env.EMAIL_VERIFICATION_URL}?token=${verificationToken} 
      `,
     });
-    res.status(201).json({ message: 'User registered successfully. Please check your email for verification.' }) as LoginResponse;
+    return sendSuccessResponse({ message: 'User registered successfully. Please check your email for verification.', res });
   } catch (error: any) {
-    res.status(500).json({ error: error.message }) as LoginResponse;
+    return sendErrorResponse({ error, res });
   }
 }

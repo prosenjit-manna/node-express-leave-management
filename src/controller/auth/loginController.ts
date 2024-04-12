@@ -27,16 +27,14 @@ export async function loginController(req: Request, res: Response) {
     if (user.lockoutTime && user.failedAttempt === 4) {
       const diffMin = Math.abs(differenceInMinutes(user.lockoutTime, new Date()));
       if (diffMin < 30) {
-        return res
-          .status(401)
-          .json({ error: `Authentication failed. your account has been lockout for 30 min. You can try after ${30 - diffMin} minute` });
+        return res.status(401).json({ error: 'Authentication failed. your account has been lockout for 30 min. You can try after some time' });
       }
     }
 
     if (!passwordMatch) {
       const attempt = user?.failedAttempt ? user.failedAttempt + 1 : 1;
       await user?.updateOne({ failedAttempt: attempt, lockoutTime: new Date() });
-      return res.status(401).json({ error: `Authentication failed. Remaining attempt ${4 - attempt}` });
+      return res.status(401).json({ error: `Authentication failed.` });
     }
 
     await user?.updateOne({ failedAttempt: 0, lockoutTime: null, emailVerified: true });
