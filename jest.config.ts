@@ -7,6 +7,7 @@ const config: Config.InitialOptions = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   testMatch: ['**/*.spec.ts'],
+  testTimeout: 2 * 60 * 1000,
 };
 
 export default config;

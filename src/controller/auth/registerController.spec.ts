@@ -11,7 +11,7 @@ describe('login spec', () => {
     });
     registerSuccessResponse.parse(response);
   });
-  test('Error Register', async () => {
+  test('Error Register for duplicate user', async () => {
     try {
       await axiosInstance.post(`/auth/register`, {
         username: get_env.OWNER_EMAIL,

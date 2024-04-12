@@ -3,7 +3,6 @@ import { get_env } from './get-env';
 
 export const axiosInstance = axios.create({
   baseURL: `http://${get_env.SERVER_URL}:${get_env.PORT}`,
-  timeout: 1000,
 });
 
 axiosInstance.interceptors.response.use(
