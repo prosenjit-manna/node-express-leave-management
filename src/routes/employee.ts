@@ -12,6 +12,6 @@ employeeRouter.post('/add', authMiddleWare, addEmployeeController);
 employeeRouter.post('/edit', authMiddleWare, editEmployeeController);
 employeeRouter.post('/view', authMiddleWare, viewEmployeeController);
 employeeRouter.post('/list', authMiddleWare, listEmployeeController);
-employeeRouter.delete('/delete', authMiddleWare, deleteEmployeeController);
+employeeRouter.post('/delete', authMiddleWare, deleteEmployeeController);
 
 export default employeeRouter;
