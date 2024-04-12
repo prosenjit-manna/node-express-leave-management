@@ -3,11 +3,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { get_env } from './lib/get-env';
 
-import authRoutes from './view/auth';
+import authRoutes from './routes/auth';
 import { dbConnect } from './lib/connection';
 import { sentryInit } from './lib/sentry-error-tracking';
-import employeeRouter from './view/employee';
-import leaveRoute from './view/leave';
+import employeeRouter from './routes/employee';
+import leaveRoute from './routes/leave';
 
 dbConnect();
 
@@ -27,4 +27,3 @@ app.get('/', (req: Request, res: Response) => {
 app.listen(get_env.PORT, () => {
   console.log(`API Server running at http://localhost:${get_env.PORT}`);
 });
-
