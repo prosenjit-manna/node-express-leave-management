@@ -72,7 +72,7 @@ describe('login spec', () => {
       }
     }
     await userModel.where({ username: get_env.OWNER_EMAIL }).updateOne({ emailVerified: true });
-  }, 10000);
+  });
 
   test('Verification token is incorrect', async () => {
     const verificationToken = await bcrypt.hash(uuidv4(), 10);
