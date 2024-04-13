@@ -5,16 +5,13 @@ import mongoose from 'mongoose';
 import { UserType } from '../../interface/data/userType.enum';
 import { DeleteEmployeeRequest } from '../../interface/api/employee/delete-employee/delete-employee-request.schema';
 import { employeeModel } from '../../models/employeeModel';
+import { EditEmployeeRequest } from '../../interface/api/employee/edit-employee/editRequest.schema';
+import { faker } from '@faker-js/faker';
 
 [UserType.APP_OWNER, UserType.ORG_OWNER, UserType.USER].forEach(async (userType) => {
-  describe(`Delete Employee ${userType}`, () => {
+  describe(`Edit Employee ${userType}`, () => {
     let testClient: AxiosInstance | null;
     let mongoInstance: typeof mongoose | undefined;
-
-    let testData = {
-      userId: '',
-      employeeId: '',
-    };
 
     beforeAll(async () => {
       mongoInstance = await dbConnect();
@@ -30,21 +27,22 @@ import { employeeModel } from '../../models/employeeModel';
       testClient = await getAuthenticatedClient(userType);
     });
 
-    test('Delete Employee', async () => {
+    test('Edit Employee', async () => {
       const query = {
         $or: [{ deletedAt: { $eq: null } }, { deletedAt: { $exists: true, $eq: undefined } }],
       };
       const employee = await employeeModel.findOne(query).limit(1);
-      console.log(employee);
 
-      testData.userId = employee?.userId?.toString() as string;
-
-      const payload: DeleteEmployeeRequest = {
-        userId: testData.userId,
+      const payload: EditEmployeeRequest = {
+        id: employee?.id,
+        name: faker.person.fullName(),
+        phone: faker.phone.number(),
+        gender: 'M',
+        dob: '2024-04-10',
       };
 
       try {
-        await testClient?.post('/employee/delete', payload);
+        await testClient?.post('/employee/edit', payload);
       } catch (e: any) {
         if (userType === UserType.USER) {
           expect(e.message).toBe('Access Forbidden!');
