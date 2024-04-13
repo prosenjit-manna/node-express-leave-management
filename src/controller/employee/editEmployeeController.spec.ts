@@ -3,7 +3,6 @@ import { AxiosInstance } from 'axios';
 import { dbConnect } from '../../lib/connection';
 import mongoose from 'mongoose';
 import { UserType } from '../../interface/data/userType.enum';
-import { DeleteEmployeeRequest } from '../../interface/api/employee/delete-employee/delete-employee-request.schema';
 import { employeeModel } from '../../models/employeeModel';
 import { EditEmployeeRequest } from '../../interface/api/employee/edit-employee/editRequest.schema';
 import { faker } from '@faker-js/faker';
