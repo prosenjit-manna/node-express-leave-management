@@ -1,5 +1,4 @@
 import express from 'express';
-import { authMiddleWare } from '../middlewares/authMiddleWare';
 import { addEmployeeController } from '../controller/employee/addEmployeeController';
 import { viewEmployeeController } from '../controller/employee/viewEmployeeController';
 import { listEmployeeController } from '../controller/employee/listEmployeeController';
@@ -8,10 +7,10 @@ import { editEmployeeController } from '../controller/employee/editEmployeeContr
 
 const employeeRouter = express.Router();
 
-employeeRouter.post('/add', authMiddleWare, addEmployeeController);
-employeeRouter.post('/edit', authMiddleWare, editEmployeeController);
-employeeRouter.post('/view', authMiddleWare, viewEmployeeController);
-employeeRouter.post('/list', authMiddleWare, listEmployeeController);
-employeeRouter.post('/delete', authMiddleWare, deleteEmployeeController);
+employeeRouter.post('/add', addEmployeeController);
+employeeRouter.post('/edit', editEmployeeController);
+employeeRouter.post('/view', viewEmployeeController);
+employeeRouter.post('/list', listEmployeeController);
+employeeRouter.post('/delete', deleteEmployeeController);
 
 export default employeeRouter;

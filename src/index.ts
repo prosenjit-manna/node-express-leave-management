@@ -8,6 +8,8 @@ import { dbConnect } from './lib/connection';
 import { sentryInit } from './lib/sentry-error-tracking';
 import employeeRouter from './routes/employee';
 import leaveRoute from './routes/leave';
+import { employeeMiddleWare } from './middlewares/employeeMiddleWare';
+import { authMiddleWare } from './middlewares/authMiddleWare';
 
 dbConnect();
 
@@ -17,7 +19,7 @@ sentryInit({ app });
 app.use(express.json());
 
 app.use('/auth', authRoutes);
-app.use('/employee', employeeRouter);
+app.use('/employee', authMiddleWare, employeeMiddleWare, employeeRouter);
 app.use('/leave', leaveRoute);
 
 app.get('/', (req: Request, res: Response) => {

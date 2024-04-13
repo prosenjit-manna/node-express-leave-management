@@ -3,7 +3,6 @@ import { sendErrorResponse, sendSuccessResponse } from '../../lib/sendResponse';
 import { employeeModel } from '../../models/employeeModel';
 import { EmployeeRequest, employeeRequestSchema } from '../../interface/api/employee/add-employee/add-employee-request.schema';
 import { userModel } from '../../models/userModel';
-import { hasPrivileges } from '../../lib/hasPrivileges';
 
 export async function addEmployeeController(req: Request, res: Response) {
   const body: EmployeeRequest = req.body;
@@ -13,8 +12,6 @@ export async function addEmployeeController(req: Request, res: Response) {
   } catch (error) {
     return sendErrorResponse({ error, res });
   }
-
-  await hasPrivileges({ permission: 'employee', action: 'add', res, req });
 
   try {
     const user = await userModel.findById(body.userId);
