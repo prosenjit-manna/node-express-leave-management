@@ -14,13 +14,10 @@ export async function deleteLeaveController(req: Request, res: Response) {
 
   try {
     const leave = await leaveModel.findOne({ _id: body.leaveId });
-    const is_document_owner = req.privileges?.leave?.delete?.createdByOnly && req.user._id?.toString() === leave?.userId;
 
     if (!leave) {
       return sendErrorResponse({ res, message: 'Leave Not found!' });
-    }
-
-    if (is_document_owner || req.privileges?.leave?.delete?.enabled) {
+    } else {
       await leave.updateOne({ deletedAt: new Date() });
       return sendSuccessResponse({ res, data: leave, message: 'Leave Deleted' });
     }

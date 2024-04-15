@@ -1,15 +1,13 @@
-import { faker } from '@faker-js/faker';
 import { getAuthenticatedClient } from '../../lib-e2e/getAuthenticatedClient';
 import { AxiosInstance } from 'axios';
 import { dbConnect } from '../../lib/connection';
 import mongoose from 'mongoose';
 import { UserType } from '../../interface/data/userType.enum';
-import { employeeModel } from '../../models/employeeModel';
-import { AddLeaveRequest, addLeaveRequestSchema } from '../../interface/api/leave/add/addLeaveRequest.schema';
-import { LeaveType } from '../../interface/data/leaveType.enum';
+import { DeleteLeaveRequest } from '../../interface/api/leave/delete/deleteLeaveRequest.schema';
+import { leaveModel } from '../../models/leaveModel';
 
 [UserType.APP_OWNER, UserType.ORG_OWNER, UserType.USER].forEach(async (userType) => {
-  describe(`Add Leave ${userType}`, () => {
+  describe(`Delete Leave ${userType}`, () => {
     let testClient: AxiosInstance | null;
     let mongoInstance: typeof mongoose | undefined;
 
@@ -27,31 +25,26 @@ import { LeaveType } from '../../interface/data/leaveType.enum';
       testClient = await getAuthenticatedClient(userType);
     });
 
-    test('Add Leave', async () => {
+    test('Delete Leave', async () => {
       const currentUser: any = await testClient?.get('/auth/current-user');
 
-      let employee = await employeeModel.findOne({
-        name: { $regex: /a|b|c|d/i }, // Regular expression to match names containing 'a', 'b', 'c', or 'd' (case-insensitive)
+      let leave = await leaveModel.findOne({
         deletedAt: { $in: [null, undefined] }, // Matches documents where 'deletedAt' is either null or undefined
         userId: { $nin: [new mongoose.Types.ObjectId(currentUser?.user?._id)] },
       });
 
       if (userType === UserType.USER) {
-        employee = await employeeModel.findOne({
+        leave = await leaveModel.findOne({
           userId: currentUser?.user?._id,
         });
       }
 
-      const payload: AddLeaveRequest = {
-        userId: String(employee?.userId),
-        leaveStart: new Date().toISOString(),
-        leaveEnd: new Date().toISOString(),
-        count: 1,
-        leaveType: faker.helpers.arrayElement([LeaveType.CL, LeaveType.EL, LeaveType.SL]),
+      const payload: DeleteLeaveRequest = {
+        leaveId: String(leave?.id),
       };
 
       try {
-        await testClient?.post('/leave/add', payload);
+        await testClient?.post('/leave/delete', payload);
       } catch (e: any) {
         expect(e).toBeUndefined();
       }
@@ -61,22 +54,19 @@ import { LeaveType } from '../../interface/data/leaveType.enum';
       test('Add Leave Not allowed for Other user', async () => {
         const currentUser: any = await testClient?.get('/auth/current-user');
 
-        const employee = await employeeModel.findOne({
-          userId: { $nin: [currentUser.user._id] },
+        const leave = await leaveModel.findOne({
+          deletedAt: { $in: [null, undefined] }, // Matches documents where 'deletedAt' is either null or undefined
+          userId: { $nin: [new mongoose.Types.ObjectId(currentUser?.user?._id)] },
         });
 
-        const payload: AddLeaveRequest = {
-          userId: String(employee?.userId),
-          leaveStart: new Date().toISOString(),
-          leaveEnd: new Date().toISOString(),
-          count: 1,
-          leaveType: faker.helpers.arrayElement([LeaveType.CL, LeaveType.EL, LeaveType.SL]),
+        const payload: DeleteLeaveRequest = {
+          leaveId: String(leave?.id),
         };
 
         try {
-          await testClient?.post('/leave/add', payload);
+          await testClient?.post('/leave/delete', payload);
         } catch (e: any) {
-          expect(e).toBe('Access Forbidden!');
+          expect(e.message).toBe('Access Forbidden!');
         }
       });
     }
