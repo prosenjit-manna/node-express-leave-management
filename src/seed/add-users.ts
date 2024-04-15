@@ -28,7 +28,7 @@ export async function addUsers() {
     await addUser({ username: owner_email, role: UserType.APP_OWNER, userType: UserType.APP_OWNER });
     await addUser({ username: org_email, role: UserType.ORG_OWNER, userType: UserType.ORG_OWNER });
 
-    const list = range(0, 50);
+    const list = range(0, 10);
     for (const userIndex of list) {
       const user_email = `${email_part[0]}-user-${userIndex}@${email_part[1]}`;
       const user = { username: user_email, role: UserType.USER, userType: UserType.USER };
