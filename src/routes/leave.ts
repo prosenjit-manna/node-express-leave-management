@@ -12,6 +12,6 @@ leaveRoute.post('/add', authMiddleWare, addLeaveController);
 leaveRoute.post('/edit', authMiddleWare, editLeaveController);
 leaveRoute.post('/view', authMiddleWare, viewLeaveController);
 leaveRoute.post('/list', authMiddleWare, listLeaveController);
-leaveRoute.delete('/delete', authMiddleWare, deleteLeaveController);
+leaveRoute.post('/delete', authMiddleWare, deleteLeaveController);
 
 export default leaveRoute;
