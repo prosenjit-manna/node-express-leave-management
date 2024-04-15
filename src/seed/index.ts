@@ -5,6 +5,7 @@ import { dbConnect } from '../lib/connection';
 import { addRoles } from './add-roles';
 import { addUsers } from './add-users';
 import { addEmployees } from './add-employee';
+import { addLeaves } from './add-leave';
 
 async function main() {
   appLogger.log(appLoggerLevel.info, 'Seed Started 🌱🌱');
@@ -17,6 +18,7 @@ async function main() {
 
   await addEmployees();
 
+  await addLeaves();
   await connection?.disconnect();
 
   appLogger.log(appLoggerLevel.info, 'Seed Completed ✅ ✅');

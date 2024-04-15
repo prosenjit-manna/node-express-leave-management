@@ -8,7 +8,7 @@ export interface Leave {
   leaveEnd: Date;
   count: number;
   leaveType: LeaveType;
-  status: LeaveStatus;
-  approvedBy: Schema.Types.ObjectId;
-  deletedAt: Date;
+  status?: LeaveStatus;
+  approvedBy?: Schema.Types.ObjectId;
+  deletedAt?: Date;
 }
