@@ -1,6 +1,6 @@
 import { Response, NextFunction, Request } from 'express';
 import { employeeModel } from '../models/employeeModel';
-import { sendForbiddenResponse } from '../lib/sendResponse';
+import { sendErrorResponse, sendForbiddenResponse } from '../lib/sendResponse';
 import { EmployeeRequest } from '../interface/api/employee/add-employee/add-employee-request.schema';
 import { EditEmployeeRequest } from '../interface/api/employee/edit-employee/editRequest.schema';
 import { DeleteEmployeeRequest } from '../interface/api/employee/delete-employee/delete-employee-request.schema';
@@ -44,5 +44,12 @@ export async function employeeMiddleWare(req: Request, res: Response, next: Next
       sendForbiddenResponse({ res });
     }
     next();
+  } else if (action === 'view') {
+    if (!req.privileges.employee?.list?.enabled) {
+      sendForbiddenResponse({ res });
+    }
+    next();
+  } else {
+    sendErrorResponse({ message: 'Not implemented', res });
   }
 }
