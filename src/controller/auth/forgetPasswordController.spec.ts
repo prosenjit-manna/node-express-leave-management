@@ -37,8 +37,9 @@ describe('Forget Password', () => {
     }
 
     const user = await userModel.findOne({ username: get_env.OWNER_EMAIL });
-    emailVerificationToken = user?.emailVerificationToken as string;
-    expect(user?.emailVerificationToken).toBeDefined();
+    expect(user?.passwordResetToken).toBeDefined();
+
+    await userModel.findOne({ username: get_env.OWNER_EMAIL }).updateOne({ passwordResetToken: null });
   });
 
   test('Try Reset password with token', async () => {
