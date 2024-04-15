@@ -39,7 +39,7 @@ export async function employeeMiddleWare(req: Request, res: Response, next: Next
       return sendForbiddenResponse({ res });
     }
     next();
-  } else if (action === 'list') {
+  } else if (action === 'list' || action === 'search-user') {
     if (!req.privileges.employee?.list?.enabled) {
       return sendForbiddenResponse({ res });
     }
