@@ -3,12 +3,12 @@ import { ZodError } from 'zod';
 
 export function sendErrorResponse({ error, res, message }: { res: Response; error?: any; message?: string }) {
   if (message) {
-    res.status(500).json({ message: message });
+    return res.status(500).json({ message: message });
   } else if (error) {
     if (error instanceof ZodError) {
       return res.status(500).json({ message: 'Data Validation Errors', errors: error.errors });
     }
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 }
 
@@ -23,5 +23,5 @@ export function sendForbiddenResponse({ error, res, message }: { res: Response; 
 }
 
 export function sendSuccessResponse({ res, message, data }: { res: Response; message: string; data?: any }) {
-  res.send({ message, data: data || {} });
+  return res.status(200).json({ message, data: data || {} });
 }

@@ -20,12 +20,12 @@ export async function addEmployeeController(req: Request, res: Response) {
       return sendErrorResponse({ message: 'User Not found', res });
     }
   } catch (error) {
-    sendErrorResponse({ error, res });
+    return sendErrorResponse({ error, res });
   }
 
   try {
     const employee = await employeeModel.create(body);
-    sendSuccessResponse({ message: 'Employee Added', res, data: employee });
+    return sendSuccessResponse({ message: 'Employee Added', res, data: employee });
   } catch (error) {
     return sendErrorResponse({ error, res });
   }
