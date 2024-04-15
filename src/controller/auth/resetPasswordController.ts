@@ -12,7 +12,7 @@ export async function resetPasswordController(req: Request, res: Response) {
     const user = await userModel.findOne({ passwordResetToken: token });
 
     if (!user) {
-      sendErrorResponse({ message: 'Invalid Token!', res });
+      return sendErrorResponse({ message: 'Invalid Token!', res });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
