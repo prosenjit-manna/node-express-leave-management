@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { DeleteLeaveRequest, deleteLeaveRequestSchema } from '../../interface/api/leave/delete/deleteLeaveRequest.schema';
 import { leaveModel } from '../../models/leaveModel';
-import { sendErrorResponse, sendForbiddenResponse, sendSuccessResponse } from '../../lib/sendResponse';
+import { sendErrorResponse, sendSuccessResponse } from '../../lib/sendResponse';
 
 export async function deleteLeaveController(req: Request, res: Response) {
   const body: DeleteLeaveRequest = req.body;
@@ -10,10 +10,6 @@ export async function deleteLeaveController(req: Request, res: Response) {
     deleteLeaveRequestSchema.parse(req.body);
   } catch (error) {
     sendErrorResponse({ res, error });
-  }
-
-  if (!req.privileges.employee?.update?.enabled) {
-    return sendForbiddenResponse({ res });
   }
 
   try {
