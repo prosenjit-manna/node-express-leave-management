@@ -6,6 +6,7 @@ import { leaveModel } from '../../models/leaveModel';
 
 export async function listLeaveController(req: Request, res: Response) {
   const body: ListLeaveRequest = req.body;
+  const leavePrivilege = req.privileges.leave;
 
   try {
     listLeaveRequestSchema.parse(req.body);
@@ -16,6 +17,13 @@ export async function listLeaveController(req: Request, res: Response) {
   let listQuery: any = {
     $or: [{ deletedAt: { $eq: null } }, { deletedAt: { $exists: true, $eq: undefined } }],
   };
+
+  if (leavePrivilege?.list?.createdByOnly) {
+    listQuery = {
+      ...listQuery,
+      ...{ userId: req.user._id },
+    };
+  }
 
   if (body.userId) {
     listQuery = {
