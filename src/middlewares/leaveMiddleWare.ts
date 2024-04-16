@@ -26,10 +26,11 @@ export async function leaveMiddleWare(req: Request, res: Response, next: NextFun
     const is_matched_author = req.user._id?.toString() === row?.userId;
     const is_document_owner = req.privileges?.leave?.update?.createdByOnly && is_matched_author;
 
-    if ((req.privileges.leave?.update?.createdByOnly && !is_document_owner) || !req.privileges.leave?.update?.enabled) {
+    if ((req.privileges.leave?.create?.createdByOnly && is_document_owner) || req.privileges.leave?.create?.enabled) {
+      next();
+    } else {
       return sendForbiddenResponse({ res });
     }
-    next();
   } else if (action === 'delete') {
     const body: DeleteLeaveRequest = req.body;
     const row = await leaveModel.findOne({ _id: body.leaveId });
