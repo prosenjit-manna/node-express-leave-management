@@ -5,9 +5,11 @@ import mongoose from 'mongoose';
 import { UserType } from '../../interface/data/userType.enum';
 import { employeeModel } from '../../models/employeeModel';
 import { viewEmployeeRequest } from '../../interface/api/employee/view-employee/view-employee-request.schema';
+import { leaveModel } from '../../models/leaveModel';
+import { ViewLeaveRequest } from '../../interface/api/leave/view/viewLeaveRequest.schema';
 
 [UserType.APP_OWNER, UserType.ORG_OWNER, UserType.USER].forEach(async (userType) => {
-  describe(`View Employee ${userType}`, () => {
+  describe(`View Leave ${userType}`, () => {
     let testClient: AxiosInstance | null;
     let mongoInstance: typeof mongoose | undefined;
 
@@ -25,23 +27,29 @@ import { viewEmployeeRequest } from '../../interface/api/employee/view-employee/
       testClient = await getAuthenticatedClient(userType);
     });
 
-    test('View Employee', async () => {
-      const query = {
+    test('View Leave', async () => {
+      const currentUser: any = await testClient?.get('/auth/current-user');
+
+      let query = {
         $or: [{ deletedAt: { $eq: null } }, { deletedAt: { $exists: true, $eq: undefined } }],
       };
-      const employee = await employeeModel.findOne(query).limit(1);
-      const payload: viewEmployeeRequest = {
-        employeeId: employee?.id,
+
+      if (userType === UserType.USER) {
+        query = {
+          ...query,
+          ...{ userId: currentUser.user._id },
+        };
+      }
+
+      const leave = await leaveModel.findOne(query).limit(1);
+      const payload: ViewLeaveRequest = {
+        leaveId: leave?.id,
       };
 
       try {
-        await testClient?.post('/employee/view', payload);
+        const response = await testClient?.post('/leave/view', payload);
       } catch (e: any) {
-        if (userType === UserType.USER) {
-          expect(e.message).toBe('Access Forbidden!');
-        } else {
-          expect(e).toBeUndefined();
-        }
+        expect(e.message).toBeUndefined();
       }
     });
   });
