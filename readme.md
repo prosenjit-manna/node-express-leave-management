@@ -26,6 +26,9 @@
 - Registration with email verification 
 - User Types 
 - Employee CRUD + e2e
+  - Add, edit, delete, list, search, Pagination
+- Leave Crud + e2e 
+  - Add, edit, delete, list, search, Pagination
 
 ### Seed 
 - User
@@ -34,13 +37,9 @@
 - Leave
 
 # In Progress
-- Leave Collection Crud 
+- Leave Settings 
 
 ## Backlog 
 - JWT token validity update 
 - Organization Collection Crud
-- Leave Settings 
 - Custom Role
-
-
-
