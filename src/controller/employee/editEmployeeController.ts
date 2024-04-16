@@ -23,8 +23,8 @@ export async function editEmployeeController(req: Request, res: Response) {
   }
 
   try {
-    const employee = await employeeModel.updateOne(body);
-    sendSuccessResponse({ message: 'Employee Edit', res, data: employee });
+    const employee = await employeeModel.findById(body.id).updateOne(body);
+    return sendSuccessResponse({ message: 'Employee Edit', res, data: employee });
   } catch (error) {
     return sendErrorResponse({ error, res });
   }
