@@ -11,6 +11,7 @@ import leaveRoute from './routes/leave';
 import { employeeMiddleWare } from './middlewares/employeeMiddleWare';
 import { authMiddleWare } from './middlewares/authMiddleWare';
 import { leaveMiddleWare } from './middlewares/leaveMiddleWare';
+import leaveSettingsRoute from './routes/leave-settings';
 
 dbConnect();
 
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/employee', authMiddleWare, employeeMiddleWare, employeeRouter);
 app.use('/leave', authMiddleWare, leaveMiddleWare, leaveRoute);
+app.use('/leave-settings', authMiddleWare, leaveMiddleWare, leaveSettingsRoute);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('API server up and running!');

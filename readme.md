@@ -20,6 +20,7 @@
 - Login 
 - Login lockout after 4 times incorrect password
 - Forget password and Reset password with token 
+- JWT token validity update 
 - Get logged in user information 
 - File based logger with winston
 - Dynamic role
@@ -37,10 +38,9 @@
 - Leave
 
 # In Progress
-- JWT token validity update 
-
-## Backlog 
 - Leave Settings 
+  
+## Backlog 
+- Leave Collection Change history
 - Organization Collection Crud
 - Custom Role
-- Leave Collection Change history

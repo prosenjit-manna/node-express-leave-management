@@ -38,7 +38,7 @@ import { LeaveType } from '../../interface/data/leaveType.enum';
 
       if (userType === UserType.USER) {
         employee = await employeeModel.findOne({
-          userId: currentUser?.user?._id,
+          userId: new mongoose.Types.ObjectId(currentUser?.user?._id),
         });
       }
 
