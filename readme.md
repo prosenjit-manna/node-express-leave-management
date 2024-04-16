@@ -37,9 +37,10 @@
 - Leave
 
 # In Progress
-- Leave Settings 
+- JWT token validity update 
 
 ## Backlog 
-- JWT token validity update 
+- Leave Settings 
 - Organization Collection Crud
 - Custom Role
+- Leave Collection Change history

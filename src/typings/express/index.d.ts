@@ -6,6 +6,8 @@ declare global {
     interface Request {
       user: User;
       privileges: Privileges;
+      tokenExpireSoon?: boolean;
+      jwt?: string;
     }
   }
 }
