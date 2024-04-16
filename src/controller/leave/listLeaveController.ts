@@ -25,7 +25,7 @@ export async function listLeaveController(req: Request, res: Response) {
     };
   }
 
-  if (body.userId) {
+  if (body.userId && !leavePrivilege?.list?.createdByOnly) {
     listQuery = {
       ...listQuery,
       ...{ userId: body.userId },
