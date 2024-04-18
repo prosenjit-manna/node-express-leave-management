@@ -24,10 +24,10 @@ const originWhiteList = get_env.CORS_DOMAIN_WHITE_LIST.split(',');
 
 const corsOptions = {
   origin: (origin: any, callback: any) => {
-    if (originWhiteList.indexOf(origin) !== -1) {
+    if (originWhiteList.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback();
     }
   },
 };
