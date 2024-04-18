@@ -74,6 +74,23 @@ describe('login spec', () => {
     await userModel.where({ username: get_env.OWNER_EMAIL }).updateOne({ emailVerified: true });
   });
 
+  test('Email Verification', async () => {
+    const verificationToken = await bcrypt.hash(uuidv4(), 10);
+    await userModel.where({ username: get_env.OWNER_EMAIL }).updateOne({ emailVerified: false, emailVerificationToken: verificationToken });
+
+    const loginPayload: LoginRequest = {
+      username: get_env.OWNER_EMAIL,
+      password: get_env.SEED_DEFAULT_PASSWORD,
+      verificationToken: `${verificationToken}`,
+    };
+
+    await axiosInstance().post(`/auth/login`, loginPayload);
+
+    const user = await userModel.where({ username: get_env.OWNER_EMAIL }).findOne();
+    expect(user?.emailVerified).toBe(true);
+    await userModel.where({ username: get_env.OWNER_EMAIL }).updateOne({ emailVerified: true, emailVerificationToken: null });
+  });
+
   test('Verification token is incorrect', async () => {
     const verificationToken = await bcrypt.hash(uuidv4(), 10);
     await userModel.where({ username: get_env.OWNER_EMAIL }).updateOne({ emailVerified: false, emailVerificationToken: verificationToken });
@@ -81,7 +98,7 @@ describe('login spec', () => {
     const loginPayload: LoginRequest = {
       username: get_env.OWNER_EMAIL,
       password: get_env.SEED_DEFAULT_PASSWORD,
-      verificationToken,
+      verificationToken: `${verificationToken}-wrong`,
     };
 
     try {
