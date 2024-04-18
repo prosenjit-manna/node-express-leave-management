@@ -12,12 +12,27 @@ import { employeeMiddleWare } from './middlewares/employeeMiddleWare';
 import { authMiddleWare } from './middlewares/authMiddleWare';
 import { leaveMiddleWare } from './middlewares/leaveMiddleWare';
 import leaveSettingsRoute from './routes/leave-settings';
+import cors from 'cors';
 
 dbConnect();
 
 const app = express();
+
 sentryInit({ app });
 
+const originWhiteList = get_env.CORS_DOMAIN_WHITE_LIST.split(',');
+
+const corsOptions = {
+  origin: (origin: any, callback: any) => {
+    if (originWhiteList.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/auth', authRoutes);
