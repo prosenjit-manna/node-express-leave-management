@@ -21,6 +21,7 @@ export const get_env = cleanEnv(process.env, {
 
   // Frontend Routes
   EMAIL_VERIFICATION_URL: str({ desc: 'Email verification URL', default: 'http://localhost:3000/login' }),
+  RESET_PASSWORD_URL: str({ desc: 'Email verification URL', default: 'http://localhost:3000/reset-password' }),
 
   // Seed
   OWNER_EMAIL: str({ desc: 'OWNER EMAIL' }),

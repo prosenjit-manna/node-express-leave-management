@@ -6,6 +6,7 @@ import { sendMail } from '../../lib/mail-service';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import { ForgetPasswordRequest, forgetPasswordRequest } from '../../interface/api/auth/forgetPassword/forgetPasswordRequest.interface';
+import { get_env } from '../../lib/get-env';
 
 export async function forgetPasswordController(req: Request, res: Response) {
   try {
@@ -23,8 +24,7 @@ export async function forgetPasswordController(req: Request, res: Response) {
     await user?.updateOne({ passwordResetToken });
 
     const html = `
-      <b>${passwordResetToken}</b>
-    
+      Follow this link to reset your password <a href="${get_env.RESET_PASSWORD_URL}?token=${passwordResetToken}">Link</a>
     `;
 
     if (user) {
